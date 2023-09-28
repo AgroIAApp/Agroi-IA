@@ -1,0 +1,480 @@
+@import "../../assets/global.scss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+
+.titulo-fachero-facherito {
+  width: 100%;
+  //margin: 1rem 0% 0% 0%;
+  justify-content: center !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 2.5rem !important;
+  font-weight: normal !important;
+  color: $gris-titulo !important;
+  background-color: transparent !important;
+  border: 0px !important;
+  width: auto !important;
+  display: inline-flex !important;
+  text-align: center;
+}
+
+h6{
+  margin-bottom: 0 !important;
+  margin-right: 1rem;
+  color: $gris-titulo;
+}
+
+.rounded-dropdown {
+  border-radius: 0.3rem; 
+  padding: 0.2rem 1rem;
+  background-color: $verde-clarito !important ;
+  border: 1px solid $light-gray-dropdown;
+  color: $gray-dropdown;
+  font-size: 0.75rem;
+  //position: absolute;
+  //right: -18.5rem;
+  border-color: transparent;
+  border-bottom: 0.5rem;
+  width: 10rem;
+}
+
+.rounded-dropdown-cultivos {
+  right: -26rem;
+}
+.full-width {
+    width: 100%;
+}
+.drop-but-container{
+  position: relative;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  width: 80rem;
+  margin: 1.5rem auto !important;
+  min-width: 80rem;
+}
+.buttons-container {
+  display: flex;
+  justify-content: center;
+}
+
+.dropdown-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.button-dashboard {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem; 
+  margin-right: 10px;
+  color: black; 
+}
+
+.button-dashboard:last-child {
+  margin-right: 0;
+}
+
+.selected {
+  color: $main-green;
+}
+
+.selected-line {
+  height: 2px;
+  background-color: $main-green;
+  margin-top: 0.25rem;
+}
+
+.white-column {
+  background-color: white; 
+  width: 20%; 
+  height: 100%; 
+  position: fixed;
+  left: 0; 
+}
+
+.gray-space {
+  background-color: $light-gray;
+  padding-top: 1rem;
+  width: 100%;
+  min-width: 80rem;
+  height: 100vh;
+  min-height: 115rem;
+  position: relative; 
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  width: 80rem;
+  margin: 1.5rem auto !important;
+  min-width: 80rem;
+}
+
+.cards-container2 {
+  display: flex;
+  justify-content: center;
+  width: 80rem; 
+  margin: 0rem auto; 
+  min-width: 80rem;
+}
+.cards-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 7rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  margin: 1%;
+  flex-direction: row !important;
+}
+
+.cards-wrapper-diagnostico {
+  flex: 1;
+  flex-direction: row !important;
+  align-items: center;
+  position: relative;
+  height: 10rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  margin: 1%;
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
+}
+
+.diagnostico-wrapper{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.cards-titles {
+  font-family: 'Inter', sans-serif;
+  margin-top: -4rem;
+  margin-left: 3.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+}
+
+.cards-Subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: black;
+  margin-left: -9.5rem;
+  margin-top: 3rem; 
+}
+
+.cards-Subtitle-no-data {
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
+  margin-left: -9.5rem;
+  margin-top: 3rem; 
+}
+
+
+.cards-Subtitle2 {
+  margin-left: -8rem; 
+}
+
+.cards-Subtitle3 {
+  margin-left: -4.7rem; 
+}
+
+.cards-Subtitle4 {
+  margin-left: -6.7rem; 
+}
+
+.cards-Subtitle-old-origin {
+  position:absolute;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black;
+  margin-top: 0rem; 
+  margin-left: 14.3rem;
+}
+
+.upLineImage {
+  position: absolute;
+  width: 3rem; 
+  height: 3rem; 
+  margin-left: 10.7rem; 
+}
+
+.upLineImageMetros { 
+  margin-left: 11.5rem; 
+}
+
+.upLineImagendvi {
+  margin-left: 10.7rem; 
+}
+
+.upLineImageSano {
+  margin-left: 10.7rem; 
+}
+
+.cards-Subtitle span {
+  font-size: 1rem; 
+  font-weight: normal; 
+}
+
+.red {
+  color: $red-dashboards;
+}
+
+.green {
+  color: $green-dashboards;
+}
+
+.circle-card {
+  position: absolute;
+  margin-top: -2.4rem;
+  margin-left: 3rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  left: -2rem; 
+  top: 55%;
+  transform: translateY(-50%);
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+} 
+
+.first {
+  background-color: $color-circulo-verde;
+  background-image: url('../../images/plantacion.png'); 
+} 
+
+.second {
+  background-color: $red-image;
+  background-image: url('../../images/hospital.png'); 
+} 
+
+.third {
+  background-color: #B5C5FD;
+  background-image: url('../../images/velocimetro.png'); 
+} 
+
+.fourth {
+  background-color: #FFF6A9;
+  background-image: url('../../images/gota-de-agua.png'); 
+} 
+
+.file-upload-container {
+  position: relative;
+  //left: -26rem; 
+  //margin: 0rem 10rem;
+  display: flex;
+  justify-content: start;
+}
+
+.first-dashboard-aligned{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.dashboards-container {
+  display: flex;
+  justify-content: center;
+  width: 78rem;
+  margin: -1rem auto;
+  height: 27.5rem;
+  min-width: 78rem;
+  //margin-top: 2rem;
+}
+
+.dashboard {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  height: 26rem;
+}
+
+.nombre-producto {
+  width: 100%;
+  margin: 1rem 0% 0% 0%;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: black;
+}
+
+.product-card {
+  align-items: center;
+  position: relative;
+  min-width: 5rem; 
+  flex: 1 1 auto;
+  height: 15rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  margin: 1%;
+}
+
+  .product-image {
+    margin-top: 0.7rem; 
+    height: 9rem !important;
+  }
+
+  .product-card .product-price {
+  font-weight: bold; 
+}
+
+.cards-subtitle {
+  font-family: 'Inter', sans-serif;
+  margin-top: rem;
+   margin-left: -6.7rem;
+  font-size: 0.9rem;
+  text-align: left;
+  color: black;
+}
+
+.diagnostic-class{
+  font-family: 'Inter', sans-serif;
+  margin-right: 1.5rem;
+  font-size: 0.9rem;
+  text-align: left;
+  color: black;
+}
+
+.overhydration-class {
+   margin-left: 1rem;
+}
+
+.dehydration-class {
+   margin-left: -10.5rem;
+}
+
+.frosting-class {
+   margin-left: -10.5rem;
+   margin-top: 1.5rem;
+}
+
+.very-class {
+   margin-left: -7.9rem;
+   margin-top: 1.5rem;
+}
+
+.good-class {
+   margin-left: -4.5rem;
+   margin-top: 1.5rem;
+}
+
+.diagnostic-subtitle{
+  font-family: 'Inter', sans-serif;
+  //margin-top: -7rem;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.excellent-subtitle {
+  color: $main-green;
+}
+
+.dehydration-subtitle {
+  color: $yellow-diagnostic;
+}
+
+.overhydration-subtitle {
+  color: $blue-diagnostic;
+}
+
+.frosting-subtitle {
+  color: $light-blue-diagnostic;
+}
+
+.mapa-card{
+    align-content: center;
+    margin: 1rem 1rem;
+    padding: 1rem;
+    width: 90rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+  border-radius: 0.5rem;
+}
+
+.button-desc {
+  //margin-right: 0.5rem;
+  padding: 0.5rem;
+  margin-left: 1rem !important;
+}
+
+.option-select{
+    background-color:$verde-clarito !important;
+}
+
+.option-select:hover{
+    background-color:$main-green !important;
+    //color: white !important;
+}
+
+.form-control{
+  border-radius: 16px !important;
+  border: 2px solid $main-green !important;
+  font-size: 1.4rem !important;
+  margin: 0.5rem !important;
+  color: $main-green !important;
+}
+
+// .agro-uploader:hover{
+//   background-color: $main-green;
+//   color: white !important;
+// }
+
+.vector{
+  width: 30rem;
+}
+
+.campo-info-card-header{
+  align-items: end;
+  display: inline-flex;
+  justify-content: flex-end;
+  margin: 0.2rem;
+}
+
+.info-card{
+  margin: 0 1.2rem 0 1.2rem;
+}
+
+.info-mapa{
+  justify-content: space-between !important;
+  flex-direction: column !important;
+  margin: 1rem;
+  width: 30rem;
+}
+
+.indices{
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-check-input{
+  border-color: $gris-titulo !important;
+  //border-width: 2px !important;
+}
+
+.form-check-input:checked{
+  background-color: $main-green !important;
+  border-color: $main-green !important;
+}

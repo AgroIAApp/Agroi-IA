@@ -1,0 +1,44 @@
+@import "../../../assets/global.scss";
+
+.agregar-campo-container{
+    margin: 1rem 1rem;
+    padding: 1rem;
+    width: 70vw;
+    //flex-direction: column;
+    align-items: stretch;
+}
+
+.min-content{
+  max-width: 24vw ;
+  min-width: 10vw;
+  //width: min-content;
+}
+
+.home{
+  position: absolute;
+  top: 20% !important;
+  left: 15%;
+  flex-direction: row;
+  justify-content: space-between
+}
+
+@media screen and (max-width: 60em) {
+  
+    .min-content{
+      max-width: 60vw ;
+      min-width: 10vw;
+      //width: min-content;
+    }
+}
+
+.max-content{
+   max-width: 100vw;
+}
+
+.agro-card{
+    background-color: #F1FFFA;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.26) ;
+    border-radius: 10px;
+    align-content: center;    
+}
+  

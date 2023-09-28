@@ -1,0 +1,45 @@
+@import "../../assets/global.scss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+
+.image-container-cult {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13.2rem, 1fr));
+  grid-gap: 1.2rem;
+  margin-top: 1rem;
+  margin-left: 1.2rem;
+}
+
+.rounded-image-cult {
+  border-radius: 0.5rem;
+}
+
+.image-wrapper-cult {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: flex-start;
+  height: 14rem;
+  width: 13.2rem;
+  border-radius: 0.5rem;
+  background-color: $gris-tarjetas-fondo-infoCampos; 
+}
+
+.image-wrapper-cult img {
+  width: 90%;
+  height: 65%;
+  object-fit: cover;
+  margin-top: 5%;
+}
+
+.image-name-cult {
+  position: absolute;
+  bottom: 2rem;
+  left: 0.7rem;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif; 
+  font-weight: bold;
+  color: black;
+  pointer-events: none;
+}
+

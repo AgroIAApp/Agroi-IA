@@ -1,0 +1,102 @@
+@import "../../../assets/global.scss";
+
+.agro-nav{
+    display: flex !important;
+    justify-content: space-around !important;
+    background-color: white;
+}
+.agro-header{
+    margin-left: 1rem !important;
+    margin-right: 1rem !important; 
+}
+
+
+.nav-underline{
+    color: #2A7D2E;
+    --bs-nav-underline-link-active-color: #2A7D2E;
+    font-weight: bold;
+    font-size: 2vh;
+}
+
+.nav-link.active{
+    color: #2A7D2E !important;
+}
+
+.nav-underline .nav-link{
+    color: #464E47;
+}
+.nav-link:focus, .nav-link:hover{
+    color:  #2A7D2E !important;
+}
+
+.nav-underline .nav-link.active{
+    color: #2A7D2E !important;
+}
+
+.ht{
+    width: 100%;
+}
+
+.navbar-brand{
+    display: flex;
+    align-items: center;
+}
+
+.navbar>.container{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.dropdown{
+    margin-left: 0.5rem;
+}
+
+.user-info-item{
+    display: flex;
+    align-items: center;
+
+}
+
+
+
+.dropdown-menu.show{
+    background-color: #2A7D2E !important;
+    margin-top: 1rem !important;
+}
+
+.dropdown-item{
+    color: white !important;
+    display: flex !important;
+    justify-content: flex-start;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+.dropdown-item:hover {
+    background-color: $verde-clarito !important;
+    color:#464E47 !important;
+}
+
+.dropdown-divider{
+    border-color: white !important;
+}
+
+.btn-container{
+    display: flex;
+}
+
+
+@media (min-width: 1400px){
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1810px !important;
+    }
+
+}
+
+@media (min-width: 100px) and (max-width: 1400px)
+{.container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1370px  !important;}
+}
+
+

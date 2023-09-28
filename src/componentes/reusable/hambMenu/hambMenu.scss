@@ -1,0 +1,149 @@
+@import "../../../assets/global.scss";
+
+
+
+.bm-menu {
+    background-color: $verde-oscuro;
+    padding: 2em 3em 1em;
+    font-size: 1.15em;
+    height: 100%;
+    width: auto; 
+    overflow: hidden !important;   
+  }
+
+  .bm-menu-wrap{
+    position: fixed;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+  .bm-item {
+    display: inline-block;
+    color: #fff;
+    padding: 0.5em;
+    text-decoration: none;
+  }
+  
+  .bm-burger-bars {
+    background: #fff;
+  }
+
+  .bm-burger-button {
+    position: fixed;
+    width: 2vw;
+    height: 3vh;
+    top: 4vh;
+    right: 3vh;
+
+  }
+
+
+
+  
+@media screen and (max-width: 60em) {
+   .bm-burger-button {
+    position: fixed;
+    width: 5vw;
+    height: 3vh;
+    top: 4vh;
+    right: 3vh;
+  }
+}
+
+@media screen and (max-width: 30em) {
+   .bm-burger-button {
+    position: fixed;
+    width: 7vw;
+    height: 3vh;
+    top: 4vh;
+    right: 3vh;
+  }
+}
+
+  .bm-cross {
+    height: 5% !important;
+    width: 11% !important; 
+    color: white;
+    font-size: 200%;
+    border-radius: 10px !important;
+    align-content: center !important;
+    margin: 2% !important;
+  }
+  .bm-cross:hover {    
+    color: rgb(2, 78, 2);
+  }
+
+  .close-menu-icon {
+    color: white;
+    font-size: 150%;
+  }
+
+  .close-menu-icon:hover {
+    color: red; /* Replace 'red' with your desired hover color */
+  }
+
+  
+
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .menu-drop-down{
+    transition: color 0.2s;
+    text-align: start;
+}
+
+  .menu-drop-down:hover{
+    cursor: pointer;
+    color: rgb(184, 216, 109);
+}
+
+.menu-drop-down-header{
+  margin: 0 0 1rem 2rem;
+  
+}
+
+  .menuNavItem{
+   padding-bottom: 1%;
+   border-radius: 10px;
+   transition: color 0.2s;
+   
+  }
+
+  .menuNavItem:hover{
+    cursor: pointer;
+    color: rgb(184, 216, 109);
+  
+}
+
+  .menuNav{
+    width: 100%;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  
+  .cerrar-sesion-container{
+    background-color: transparent;    
+    width: 23vh;
+    height: 5%;
+    position: absolute;
+    bottom: 5vh;    
+  }
+
+  .cerrar-sesion{
+    background-color: $verde-clarito !important;
+    color: $verde-musgo !important;
+    width: 90% !important;
+    border-radius: 10px !important;
+    border-color: $verde-musgo;
+    height: 100%;  
+    
+  }
+
+  .cerrar-sesion:hover{
+    background-color: $verde-principal  !important;
+    color: white !important;
+  }
+  
