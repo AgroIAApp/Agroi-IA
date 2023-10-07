@@ -722,7 +722,7 @@ export default function InfoCampo() {
                 </IndicatorContext.Provider>
               </Card>
               <Card className="info-mapa derecha min-content">
-                <Card.Body className="d-flex flex-column">
+                <Card.Body className="d-flex flex-column justify-content-between">
                   <Card.Title className="card-title-no-campo">ÍNDICES</Card.Title>
                   <Form>
                     <div key="inline-radio" className="mb-1 d-flex indices">
