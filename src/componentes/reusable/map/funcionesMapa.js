@@ -152,7 +152,7 @@ const addColor = (feat, indicator) => ({
   properties: {
     plotInfo: feat.properties.plotInfo,
     // fillColor: getPlotColor(JSON.parse(feat.properties.plotInfo), indicator.toLowerCase()),
-    fillColor: getNDVIColor(JSON.parse(feat.properties.plotInfo).ndvi),
+    fillColor: getNDVIColor(JSON.parse(feat.properties.plotInfo)),
   },
 });
 export const createPolygonFromPlots = (field, heatmap, indicator) => {
