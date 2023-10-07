@@ -147,12 +147,12 @@ export const createGridFromPlots = (field) => {
   return { type: 'FeatureCollection', features: plotsFeatures };
 };
 
-const addColor = (feat, indicator) => ({
+export const addColor = (feat, indicator) => ({
   ...feat,
   properties: {
     plotInfo: feat.properties.plotInfo,
-    // fillColor: getPlotColor(JSON.parse(feat.properties.plotInfo), indicator.toLowerCase()),
-    fillColor: getNDVIColor(JSON.parse(feat.properties.plotInfo)),
+    fillColor: getPlotColor(JSON.parse(feat.properties.plotInfo), indicator),
+    // fillColor: getNDVIColor(JSON.parse(feat.properties.plotInfo)),
   },
 });
 export const createPolygonFromPlots = (field, heatmap, indicator) => {
@@ -231,7 +231,7 @@ export const createPolygonFromPlots = (field, heatmap, indicator) => {
   return features;
 };
 
-export const createHeatmap = (field) => createPolygonFromPlots(field, true);
+export const createHeatmap = (field, indicator) => createPolygonFromPlots(field, true, indicator);
 
 const cropCheck = (coordinates, cropPolygons) => {
   // console.log(cropPolygons);

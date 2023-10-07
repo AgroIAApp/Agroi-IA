@@ -17,6 +17,7 @@ import './agroMap.scss';
 import styles from './styles';
 import { CROP_TYPES_TRANSLATIONS } from '../../../constants/translations';
 import IndicatorContext from '../../infoCampo/indicatorContext';
+import { addColor } from './funcionesMapa';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
@@ -81,14 +82,6 @@ function AgroMap({
       drawRef.current.deleteAll();
     }
   };
-
-  const changeColor = () => {
-
-  };
-
-  useEffect(() => {
-    console.log(`ESTOY EN MAPA Y CAMBIO EL INDICADOR A ${selectedIndicator.indicator}`);
-  }, [selectedIndicator]);
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -279,6 +272,24 @@ function AgroMap({
   useEffect(() => {
     reDrawCrops();
   }, [feats]);
+
+  const changeColor = () => {
+    if (edit && drawRef.current && feats.length > 0) {
+      const allFeatures = drawRef.current.getAll().features;
+      allFeatures.forEach((feature) => {
+        const newColor = addColor(feature, selectedIndicator.indicator).properties.fillColor;
+        drawRef.current.setFeatureProperty(feature.id, 'fillColor', newColor);
+      });
+    }
+  };
+
+  // example
+  // this.mapboxDraw.setFeatureProperty(id, 'hover', value)
+  // this.mapboxDraw.add(this.mapboxDraw.get(id))
+
+  useEffect(() => {
+    changeColor();
+  }, [selectedIndicator]);
 
   return (
     <div ref={mapContainer} className="mapa" style={{ height: '100%', borderRadius: '10px' }} />
