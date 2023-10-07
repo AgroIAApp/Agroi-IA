@@ -78,6 +78,10 @@ function AgroMap({
     }
   };
 
+  const changeColor = () => {
+
+  };
+
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainer.current,
@@ -269,7 +273,10 @@ function AgroMap({
   }, [feats]);
 
   return (
-    <div ref={mapContainer} className="mapa" style={{ height: '100%', borderRadius: '10px' }} />
+    <div>
+      <div ref={mapContainer} className="mapa" style={{ height: '100%', borderRadius: '10px' }} />
+      <button onClick={changeColor()}>sadas</button>
+    </div>
   );
 }
 

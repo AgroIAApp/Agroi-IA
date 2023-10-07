@@ -740,15 +740,6 @@ export default function InfoCampo() {
                         // onChange={console.log('hola')}
                         checked={false}
                       />
-                      <Form.Check
-                        inline
-                        label="Color real"
-                        name="group1"
-                        type="radio"
-                        id="inline-radio-3"
-                        // onChange={console.log('hola')}
-                        checked={false}
-                      />
                     </div>
                   </Form>
                   <Button variant="primary" onClick={() => nav(`/editarCampo/${userID}/${field}`)}>Editar Campo</Button>

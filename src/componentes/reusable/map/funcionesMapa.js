@@ -4,7 +4,7 @@ import {
   squareGrid, booleanPointInPolygon, convex, multiPoint, concave, union, simplify,
 } from '@turf/turf';
 import { PLOT_SIZE, CROP_TYPES_KEYS, CROP_COLORS } from '../../../constants/plots';
-import { NDVI_COLOR_RANGES } from '../../../constants/ndviColors';
+import { COLOR_RANGES } from '../../../constants/ndviColors';
 
 const fixedDecimals4 = (number) => Number(number.toFixed(4));
 export const createRectangle = (listOfPolygons) => {
@@ -19,10 +19,27 @@ export const createRectangle = (listOfPolygons) => {
   return [lowestLongitude, lowestLatitude, highestLongitude, highestLatitude];
 };
 
-const getNDVIColor = (ndvi) => {
-  const matchingRange = NDVI_COLOR_RANGES.find((range) => ndvi >= range.min && ndvi <= range.max);
+const getPlotColor = (plotInfo, selectedIndicator) => {
+  // if(plotInfo.hasOwnProperty(selectedIndicator)){
+  //   console.log(plotInfo[selectedIndicator])
+  // }else{
+  //   console.log("No existe ",selectedIndicator)
+  // }
+
+  // TODO ESTO SE TIENE QUE SACAR CUANDO CAMBIE EL BACK
+  let newSelected = selectedIndicator;
+  if (selectedIndicator === 'ndsi') {
+    newSelected = 'frost';
+  } else if (selectedIndicator === 'ndmi') {
+    newSelected = 'humidity';
+  }
+  const indicator = plotInfo[newSelected];
+  const colorRange = COLOR_RANGES[selectedIndicator];
+  const matchingRange = colorRange.find((range) => indicator >= range.min && indicator <= range.max);
   return matchingRange ? matchingRange.color : '#5e5d5c';
 };
+
+const getNDVIColor = (plotInfo) => getPlotColor(plotInfo, 'ndvi');
 
 const moveCoordinates = ({ lat, lon }, y, x) => ({
   lat: lat - y * PLOT_SIZE,
@@ -130,14 +147,15 @@ export const createGridFromPlots = (field) => {
   return { type: 'FeatureCollection', features: plotsFeatures };
 };
 
-const addColor = (feat) => ({
+const addColor = (feat, indicator) => ({
   ...feat,
   properties: {
     plotInfo: feat.properties.plotInfo,
+    // fillColor: getPlotColor(JSON.parse(feat.properties.plotInfo), indicator.toLowerCase()),
     fillColor: getNDVIColor(JSON.parse(feat.properties.plotInfo).ndvi),
   },
 });
-export const createPolygonFromPlots = (field, heatmap) => {
+export const createPolygonFromPlots = (field, heatmap, indicator) => {
   const {
     plots, height, width, coordinates,
   } = field;
@@ -197,7 +215,7 @@ export const createPolygonFromPlots = (field, heatmap) => {
       });
     } else {
       const poly = {};
-      const coloredFeatures = coordinatesForCrop.map((feat) => addColor(feat.polygon));
+      const coloredFeatures = coordinatesForCrop.map((feat) => addColor(feat.polygon, indicator));
       features.push({
         polygon: {
           id: contador.toString(),
