@@ -10,7 +10,7 @@
 /* eslint-disable no-new */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './infoCampo.scss';
 import '../verCultivos/verCultivos.scss';
@@ -98,6 +98,14 @@ export default function InfoCampo() {
 
     fetchData();
   }, [userID]);
+
+  const [indicator, setIndicator] = useState('ndvi');
+  // const selectedIndicator = useContext();
+
+  const handleRadioChange = (event) => {
+    const newValue = event.target.value;
+    setIndicator(newValue);
+  };
 
   const [campoInfo, setCampoInfo] = useState({
     nombreCampo: '',
@@ -719,8 +727,9 @@ export default function InfoCampo() {
                         name="group1"
                         type="radio"
                         id="inline-radio-1"
-                        // onChange={console.log('hola')}
-                        checked
+                        value="ndvi"
+                        onChange={handleRadioChange}
+                        checked={indicator === 'ndvi'}
                       />
                       <Form.Check
                         inline
@@ -728,8 +737,9 @@ export default function InfoCampo() {
                         name="group1"
                         type="radio"
                         id="inline-radio-2"
-                        // onChange={console.log('hola')}
-                        checked={false}
+                        value="ndsi"
+                        onChange={handleRadioChange}
+                        checked={indicator === 'ndsi'}
                       />
                       <Form.Check
                         inline
@@ -737,8 +747,9 @@ export default function InfoCampo() {
                         name="group1"
                         type="radio"
                         id="inline-radio-3"
-                        // onChange={console.log('hola')}
-                        checked={false}
+                        value="ndmi"
+                        onChange={handleRadioChange}
+                        checked={indicator === 'ndmi'}
                       />
                     </div>
                   </Form>
