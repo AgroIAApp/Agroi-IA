@@ -725,7 +725,7 @@ export default function InfoCampo() {
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className="card-title-no-campo">ÍNDICES</Card.Title>
                   <Form>
-                    <div key="inline-radio" className="mb-3 d-flex indices">
+                    <div key="inline-radio" className="mb-1 d-flex indices">
                       <Form.Check
                         inline
                         label="NDVI"
@@ -758,7 +758,7 @@ export default function InfoCampo() {
                       />
                     </div>
                   </Form>
-                  <div className="indicator-ranges">
+                  <div className="mb-1 indicator-ranges">
                     {COLOR_RANGES[indicator].map(({ interval, color }) => (
                       <div className="range-container">
                         <div className="rango-color" style={{ backgroundColor: color }} />
