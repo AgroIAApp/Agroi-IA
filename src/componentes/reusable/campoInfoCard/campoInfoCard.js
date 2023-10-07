@@ -36,7 +36,6 @@ export default function CampoInfoCard({
           </Card.Header>
           <Card.Body>
             <Card.Title>{imageId}</Card.Title>
-            <Card.Text>
               <ul>
                 <li>
                   <div className="d-flex">
@@ -58,7 +57,6 @@ export default function CampoInfoCard({
                   </div>
                 </li>
               </ul>
-            </Card.Text>
           </Card.Body>
           <Card.Footer>
             <small className="text-muted">Last updated 3 mins ago</small>
