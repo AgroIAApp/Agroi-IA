@@ -92,7 +92,7 @@ export default function Home() {
             ? (
               <div className="container">
                 <div className="row">
-                  { images.map((image, index) => <CampoInfoCard index={index} imageId={imageNames[index]} fieldId={user2.fields[index]._id} crops={getCrops(user2.fields[index]._id)}> </CampoInfoCard>)}
+                  { images.map((image, index) => <CampoInfoCard key={index} index={index} imageId={imageNames[index]} fieldId={user2.fields[index]._id} crops={getCrops(user2.fields[index]._id)}> </CampoInfoCard>)}
                 </div>
               </div>
             )

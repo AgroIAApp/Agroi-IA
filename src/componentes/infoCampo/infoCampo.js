@@ -495,7 +495,7 @@ export default function InfoCampo() {
         }
       });
     }
-    console.log(user2);
+    // console.log(user2);
   }, [user2]);
 
   useEffect(() => {
@@ -512,7 +512,7 @@ export default function InfoCampo() {
 
   useEffect(() => {
     metricsForMenu();
-    console.log(user2);
+    // console.log(user2);
   }, [selectedTimePeriod]);
 
   useEffect(() => {
@@ -719,7 +719,7 @@ export default function InfoCampo() {
                         name="group1"
                         type="radio"
                         id="inline-radio-1"
-                        onChange={console.log('hola')}
+                        // onChange={console.log('hola')}
                         checked
                       />
                       <Form.Check
@@ -728,7 +728,7 @@ export default function InfoCampo() {
                         name="group1"
                         type="radio"
                         id="inline-radio-2"
-                        onChange={console.log('hola')}
+                        // onChange={console.log('hola')}
                         checked={false}
                       />
                       <Form.Check
@@ -737,7 +737,7 @@ export default function InfoCampo() {
                         name="group1"
                         type="radio"
                         id="inline-radio-3"
-                        onChange={console.log('hola')}
+                        // onChange={console.log('hola')}
                         checked={false}
                       />
                       <Form.Check
@@ -746,7 +746,7 @@ export default function InfoCampo() {
                         name="group1"
                         type="radio"
                         id="inline-radio-3"
-                        onChange={console.log('hola')}
+                        // onChange={console.log('hola')}
                         checked={false}
                       />
                     </div>
