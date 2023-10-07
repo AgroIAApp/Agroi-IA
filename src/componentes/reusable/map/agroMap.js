@@ -35,11 +35,12 @@ function splitPolygon(draw, polygon) {
 }
 
 function AgroMap({
-  coordinates, changeCoordinates, addFeatures, removeFeature, feats, featErased, edit,
+  coordinates, changeCoordinates, addFeatures, removeFeature, feats, featErased, edit, view,
 }) {
   const mapContainer = useRef(null);
   const drawRef = useRef(null);
   const mapRef = useRef(null);
+  const indRef = useRef(null);
   const selectedIndicator = useContext(IndicatorContext);
   function removeFeatureMap() {
     if (drawRef.current) {
@@ -206,13 +207,18 @@ function AgroMap({
       closeOnClick: false,
     });
 
-    map.on('mousemove', (e) => {
+    const hoverFeature = (e) => {
       map.getCanvas().style.cursor = 'pointer';
       const { lngLat } = e;
       const coords = [lngLat.lng, lngLat.lat];
       let hoveredFeature = '';
+      const hasPlots = feats[0].polygon.type === 'FeatureCollection';
       if (edit) {
-        if (feats[0].polygon.type === 'FeatureCollection') {
+        if (hasPlots) {
+          const allFeats = [];
+          feats.map((feat) => allFeats.push(...feat.polygon.features));
+          const feats2 = allFeats.filter((poly) => booleanPointInPolygon(coords, poly))[0];
+          hoveredFeature = feats2;
           // console.log('ACA LOGICA DE PLOTS');
         } else {
           const feats2 = feats.filter((poly) => booleanPointInPolygon(coords, poly.polygon))[0];
@@ -220,14 +226,32 @@ function AgroMap({
         }
       }
       if (hoveredFeature !== '' && hoveredFeature) {
-        popup.setLngLat(e.lngLat)
-          .setText(CROP_TYPES_TRANSLATIONS[hoveredFeature.crop])
-          .addTo(map);
+        if (hasPlots) {
+          let { indicator } = indRef.current;
+
+          // SACAR CUANDO CAMBIE LOS INDICADORES DEL BACK
+          if (indicator === 'ndsi') {
+            indicator = 'frost';
+          } else if (indicator === 'ndmi') {
+            indicator = 'humidity';
+          }
+          const plotInfo = JSON.parse(hoveredFeature.properties.plotInfo);
+          const text = `${indicator} ${plotInfo[indicator]}`;
+          popup.setLngLat(e.lngLat)
+            .setText(text)
+            .addTo(map);
+        } else if (edit) {
+          popup.setLngLat(e.lngLat)
+            .setText(CROP_TYPES_TRANSLATIONS[hoveredFeature.crop])
+            .addTo(map);
+        }
       } else {
         map.getCanvas().style.cursor = '';
         popup.remove();
       }
-    });
+    };
+
+    map.on('mousemove', hoverFeature);
 
     map.on('mouseleave', () => {
       map.getCanvas().style.cursor = '';
@@ -288,7 +312,11 @@ function AgroMap({
   // this.mapboxDraw.add(this.mapboxDraw.get(id))
 
   useEffect(() => {
-    changeColor();
+    console.log(selectedIndicator);
+    if (view) {
+      changeColor();
+      indRef.current = selectedIndicator;
+    }
   }, [selectedIndicator]);
 
   return (
@@ -306,4 +334,5 @@ AgroMap.propTypes = {
   feats: PropTypes.arrayOf(PropTypes.object).isRequired,
   featErased: PropTypes.string.isRequired,
   edit: PropTypes.bool.isRequired,
+  view: PropTypes.bool.isRequired,
 };

@@ -71,6 +71,7 @@ export default function VerCampo({ crop }) {
             feats={filterCrops()}
             featErased={null}
             edit
+            view
           />
         )}
     </div>
