@@ -724,17 +724,6 @@ export default function InfoCampo() {
               <Card className="info-mapa derecha min-content">
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className="card-title-no-campo">ÍNDICES</Card.Title>
-                  <div>
-                    {COLOR_RANGES[indicator].map(({ interval, color }) => (
-                      <div className="range-container">
-                        <div className="rango-color" style={{ backgroundColor: color }} />
-                        <p>
-                          {interval}
-                          {' '}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
                   <Form>
                     <div key="inline-radio" className="mb-3 d-flex indices">
                       <Form.Check
@@ -769,6 +758,17 @@ export default function InfoCampo() {
                       />
                     </div>
                   </Form>
+                  <div className="indicator-ranges">
+                    {COLOR_RANGES[indicator].map(({ interval, color }) => (
+                      <div className="range-container">
+                        <div className="rango-color" style={{ backgroundColor: color }} />
+                        <p className="rango-interval">
+                          {interval}
+                          {' '}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                   <Button variant="primary" onClick={() => nav(`/editarCampo/${userID}/${field}`)}>Editar Campo</Button>
                 </Card.Body>
               </Card>
