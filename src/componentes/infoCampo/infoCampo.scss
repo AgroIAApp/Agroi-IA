@@ -16,6 +16,20 @@
   text-align: center;
 }
 
+.rango-color{
+  border: 1px solid black !important;
+  width: 10px;
+  height: 10px;
+}
+
+.range-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
 h6{
   margin-bottom: 0 !important;
   margin-right: 1rem;

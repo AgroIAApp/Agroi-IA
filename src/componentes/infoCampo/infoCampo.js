@@ -725,11 +725,11 @@ export default function InfoCampo() {
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className="card-title-no-campo">ÍNDICES</Card.Title>
                   <div>
-                    {COLOR_RANGES.indicator.map((ind, index) => (
-                      <div>
-                        <div style={{ backgroundColor: ind[index] }} />
+                    {COLOR_RANGES[indicator].map(({ interval, color }) => (
+                      <div className="range-container">
+                        <div className="rango-color" style={{ backgroundColor: color }} />
                         <p>
-                          {ind[index].interval}
+                          {interval}
                           {' '}
                         </p>
                       </div>
