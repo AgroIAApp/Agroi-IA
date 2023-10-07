@@ -35,6 +35,7 @@ import vector1 from '../../images/vector1.jpg';
 import { CROP_TYPES_KEYS } from '../../constants/plots';
 import { CROP_TYPES_TRANSLATIONS } from '../../constants/translations';
 import IndicatorContext from './indicatorContext';
+import { COLOR_RANGES } from '../../constants/ndviColors';
 
 export default function InfoCampo() {
   const { userID } = useParams();
@@ -723,6 +724,17 @@ export default function InfoCampo() {
               <Card className="info-mapa derecha min-content">
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className="card-title-no-campo">ÍNDICES</Card.Title>
+                  <div>
+                    {COLOR_RANGES.indicator.map((ind, index) => (
+                      <div>
+                        <div style={{ backgroundColor: ind[index] }} />
+                        <p>
+                          {ind[index].interval}
+                          {' '}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                   <Form>
                     <div key="inline-radio" className="mb-3 d-flex indices">
                       <Form.Check
