@@ -273,10 +273,7 @@ function AgroMap({
   }, [feats]);
 
   return (
-    <div>
-      <div ref={mapContainer} className="mapa" style={{ height: '100%', borderRadius: '10px' }} />
-      <button onClick={changeColor()}>sadas</button>
-    </div>
+    <div ref={mapContainer} className="mapa" style={{ height: '100%', borderRadius: '10px' }} />
   );
 }
 
