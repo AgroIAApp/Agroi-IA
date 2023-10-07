@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { lineToPolygon, difference, booleanPointInPolygon } from '@turf/turf';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -14,6 +16,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import './agroMap.scss';
 import styles from './styles';
 import { CROP_TYPES_TRANSLATIONS } from '../../../constants/translations';
+import IndicatorContext from '../../infoCampo/indicatorContext';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
@@ -36,6 +39,7 @@ function AgroMap({
   const mapContainer = useRef(null);
   const drawRef = useRef(null);
   const mapRef = useRef(null);
+  const selectedIndicator = useContext(IndicatorContext);
   function removeFeatureMap() {
     if (drawRef.current) {
       const { features } = drawRef.current.getAll();
@@ -81,6 +85,10 @@ function AgroMap({
   const changeColor = () => {
 
   };
+
+  useEffect(() => {
+    console.log(`ESTOY EN MAPA Y CAMBIO EL INDICADOR A ${selectedIndicator.indicator}`);
+  }, [selectedIndicator]);
 
   useEffect(() => {
     const map = new mapboxgl.Map({

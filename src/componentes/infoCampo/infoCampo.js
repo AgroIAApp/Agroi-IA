@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable consistent-return */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable jsx-a11y/img-redundant-alt */
@@ -33,6 +34,7 @@ import Loader from '../reusable/loader/loader';
 import vector1 from '../../images/vector1.jpg';
 import { CROP_TYPES_KEYS } from '../../constants/plots';
 import { CROP_TYPES_TRANSLATIONS } from '../../constants/translations';
+import IndicatorContext from './indicatorContext';
 
 export default function InfoCampo() {
   const { userID } = useParams();
@@ -714,7 +716,9 @@ export default function InfoCampo() {
             </div>
             <div className="cards-container2">
               <Card className="mapa-card max-content">
-                <VerCampo campoInfo={campoInfo} crop={crop} />
+                <IndicatorContext.Provider value={{ indicator }}>
+                  <VerCampo campoInfo={campoInfo} crop={crop} />
+                </IndicatorContext.Provider>
               </Card>
               <Card className="info-mapa derecha min-content">
                 <Card.Body className="d-flex flex-column">
