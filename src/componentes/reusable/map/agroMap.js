@@ -212,7 +212,7 @@ function AgroMap({
       const { lngLat } = e;
       const coords = [lngLat.lng, lngLat.lat];
       let hoveredFeature = '';
-      const hasPlots = feats[0].polygon.type === 'FeatureCollection';
+      const hasPlots = feats.length > 0 ? feats[0].polygon.type === 'FeatureCollection' : false;
       if (edit) {
         if (hasPlots) {
           const allFeats = [];
