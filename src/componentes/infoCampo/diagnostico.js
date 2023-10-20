@@ -61,7 +61,7 @@ export default function Diagnostico({ problema }) {
     },
   };
   const user = JSON.parse(localStorage.getItem('name')) || {};
-  const [diagnostico, setdiagnostico] = useState('FROSTING');
+  const [diagnostico, setdiagnostico] = useState('DEHYDRATION');
 
   useEffect(() => {
     if (problema === 'overhydration') {

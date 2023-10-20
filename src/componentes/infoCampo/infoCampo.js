@@ -60,6 +60,16 @@ export default function InfoCampo() {
   const [cropList, setCropList] = useState(['Todos']);
   const nav = useNavigate();
   const today = new Date();
+
+       const SOLUTION_KEYS = {
+  dehydration: "ACONDICIONADOR DE SUELO",
+  frosting: "TELA ANTI HELADA",
+  fal_nut_1: "NUTRIENTE 1",
+  fal_nut_2: "NUTRIENTE 2",
+  plag_1: "MATA PLAGA 1",
+  plag_2: "MATA PLAGA 2",
+};
+
   const traducciones = {
     Girasol: {
       cultivo: 'sunflower',
@@ -350,7 +360,7 @@ export default function InfoCampo() {
       user2.fields.forEach((fiel, index) => {
         if (fiel._id === fieldRest) {
           user2.fields[index].plots.forEach((plot) => {
-            if (plot.crop === cultivo || crop === 'Todos') {
+            if (plot.crop === cultivo || (crop === 'Todos' && plot.crop !=='none')) {
               diferenciaMenor = Number.MAX_VALUE;
               huboAlguno = false;
               let indexAusar = 0;
@@ -365,7 +375,7 @@ export default function InfoCampo() {
                   }
                 }
               });
-              if ((plot.history[indexAusar].diagnostics === 'excelent' || plot.history[indexAusar].diagnostics === 'very_good' || plot.history[indexAusar].diagnostics === 'good') && huboAlguno) {
+              if ((plot.history[indexAusar].diagnostics === 'excelent' || plot.history[indexAusar].diagnostics === 'very_good' || plot.history[indexAusar].diagnostics === 'good' || plot.history[indexAusar].diagnostics === 'none') && huboAlguno) {
                 sano += 121;
               } if (huboAlguno) {
                 metros += 121;
@@ -390,19 +400,17 @@ export default function InfoCampo() {
   };
 
   const changeProblem = () => {
-    if (problema === 'overhydration') {
-      setSearchTerm('higrostatos');
-    } else if (problema === 'frosting') {
-      setSearchTerm('TELA ANTI HELADA');
-    } else if (problema === 'dehydration') {
-      setSearchTerm('ACONDICIONADOR DE SUELO');
+    if (problema !== 'very_good') {
+      setSearchTerm(SOLUTION_KEYS[problema]);
     }
   };
 
   const metrics = () => {
     setporcentajeSano();
+    let isProblema= 0;
     let metros = 0;
     let sano = 0;
+    let problem='';
     const cultivo = traducciones[crop].cultivo;
     let hayDatos = false;
     let ndviTemp = 0;
@@ -414,7 +422,7 @@ export default function InfoCampo() {
       user2.fields.forEach((fiel, index) => {
         if (fiel._id === fieldRest) {
           user2.fields[index].plots.forEach((plot) => {
-            if (plot.crop === cultivo || crop === 'Todos') {
+            if (plot.crop === cultivo || (crop === 'Todos' && plot.crop !=='none')) {
               diferenciaMenor = Number.MAX_VALUE;
               metros += 121;
               let indexAusar = 0;
@@ -428,7 +436,7 @@ export default function InfoCampo() {
                   }
                 }
               });
-              if (plot.history[indexAusar].diagnostics === 'excelent' || plot.history[indexAusar].diagnostics === 'very_good' || plot.history[indexAusar].diagnostics === 'good') {
+              if (plot.history[indexAusar].diagnostics === 'excelent' || plot.history[indexAusar].diagnostics === 'very_good' || plot.history[indexAusar].diagnostics === 'good' || plot.history[indexAusar].diagnostics === 'none') {
                 sano += 121;
               } if (plot.history[indexAusar].diagnostics != null) {
                 hayDatos = true;
@@ -436,14 +444,16 @@ export default function InfoCampo() {
               cuantosPlots += 1;
               ndviTemp += plot.history[indexAusar].ndvi;
               humedadTemp += plot.history[indexAusar].ndmi;
-              if ((plot.history[indexAusar].diagnostics === 'overhydration' || plot.history[indexAusar].diagnostics === 'frosting' || plot.history[indexAusar].diagnostics === 'dehydration') && problema === '') {
-                setProblema(plot.history[indexAusar].diagnostics);
+              if ((plot.history[indexAusar].diagnostics === 'overhydration' || plot.history[indexAusar].diagnostics === 'frosting' || plot.history[indexAusar].diagnostics === 'dehydration') && problem === '') {
+                problem = plot.history[indexAusar].diagnostics;
+                isProblema=1;
               }
             }
           });
-          if (problema === ''){
-            setProblema("very_good");
+          if (problem === '' && isProblema===0){
+            problem = "very_good";
           }
+          setProblema(problem);
           ndviTemp = (ndviTemp / cuantosPlots).toFixed(2);
           humedadTemp = (humedadTemp / cuantosPlots).toFixed(2);
           setNdvi(ndviTemp);
@@ -456,18 +466,6 @@ export default function InfoCampo() {
         }
       });
     }
-  };
-
-  const existeCrop = (cropp) => {
-    let tru = false;
-    if (user2 && user2.fields) {
-      user2.fields.forEach((fiel, index) => {
-        if (fiel._id === fieldRest) {
-          tru = (user2.fields[index].plots.some((plot) => plot.crop === cropp));
-        }
-      });
-    }
-    return tru;
   };
 
   const getCrops = () => {
@@ -661,7 +659,7 @@ export default function InfoCampo() {
                 </div>
                 {(porcentajeSano < 0 || porcentajeSano >= 0) && porcentajeSano !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle2">
-                    {porcentajeSano}
+                    {porcentajeSano.toLocaleString()}
                     <span>m2</span>
                   </div>
                 ) : (
