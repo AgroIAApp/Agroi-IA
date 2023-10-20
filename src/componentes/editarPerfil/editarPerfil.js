@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable max-len */
 /* eslint-disable no-shadow */
@@ -18,6 +19,7 @@ import Button from '../reusable/boton/button';
 import { patch } from '../conexionBack/conexionBack';
 import Campito from '../../images/segador.png';
 import '../reusable/popup/popup.scss';
+import ErrorModal from '../reusable/errorFolder/errores';
 
 export default function EditarPerfil() {
   const { userID } = useParams();
@@ -27,10 +29,12 @@ export default function EditarPerfil() {
   const [ingresarNombre, setIngresarNombre] = useState(user.name);
   const [ingresarCorreo, setIngresarCorreo] = useState(user.email);
   const [ingresarFechaNacimiento, setIngresarFechaNacimiento] = useState(user.birthDate.slice(0, 10));
+  const [errorMessage, setErrorMessage] = useState({ title: '', message: '' });
   const [invalid, setInvalid] = useState(false);
   // const [invalid2, setInvalid2] = useState(false);
   const [campoNombreLleno, setcampoNombreLleno] = useState(false);
   const [submit, setSubmit] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleInputChange = (e, setter) => {
     setter(e.target.value);
@@ -40,7 +44,15 @@ export default function EditarPerfil() {
   const isInputFilled2 = ingresarCorreo.trim() !== '';
   const isInputFilled3 = ingresarFechaNacimiento.trim() !== '';
 
-  const handleSubmit = (e) => {
+  const handlePopUp = () => {
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmit(true);
     if (ingresarCorreo.trim().length === 0 || ingresarNombre.trim().length === 0
@@ -51,11 +63,20 @@ export default function EditarPerfil() {
         name: ingresarNombre, birthDate: ingresarFechaNacimiento, email: ingresarCorreo.toLowerCase(),
       };
       const accessToken = `Bearer ${userID}`;
-      patch('update_user/', data, {
-        headers: {
-          Authorization: accessToken,
-        },
-      });
+      try {
+        await patch('update_user/', data, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        // handlePopUp();
+      } catch (error) {
+        setErrorMessage({
+          title: 'Error de conexión',
+          message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
+        });
+        setInvalid(true);
+      }
 
       // Obtener el objeto 'user' del localStorage
       const user = JSON.parse(localStorage.getItem('name')) || {};
@@ -70,18 +91,14 @@ export default function EditarPerfil() {
     }
   };
 
-  const [showPopup, setShowPopup] = useState(false);
-
-  const handlePopUp = () => {
-    setShowPopup(true);
-  };
-
-  const closePopup = () => {
-    setShowPopup(false);
+  const okay = () => {
+    location.reload();
   };
 
   return (
     <div>
+      {invalid
+        && <ErrorModal title={errorMessage.title} message={errorMessage.message} onClick={okay} />}
       <Header />
       <form onSubmit={handleSubmit}>
         <div className="fondoverde">
@@ -113,7 +130,7 @@ export default function EditarPerfil() {
                   style={{ color: isInputFilled3 ? 'black' : '$gris-input-to-fill' }}
                 />
                 <div>
-                  <Button onClick={handlePopUp} type="submit" className="green-button cancelar-lleno">Continuar </Button>
+                  <Button type="submit" className="green-button cancelar-lleno">Continuar </Button>
                   {showPopup && (
                     <div className="popup">
                       <div className="popup-content">

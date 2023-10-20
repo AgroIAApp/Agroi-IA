@@ -229,12 +229,20 @@ export default function MapContainer({
 
   function editData(endPoint, formData) {
     const accessToken = `Bearer ${userID}`;
-    patch(endPoint, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: accessToken,
-      },
-    });
+    try {
+      patch(endPoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: accessToken,
+        },
+      });
+    } catch (error) {
+      setErrorMessage({
+        title: 'Error de conexión',
+        message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
+      });
+      setinValid(true);
+    }
   }
 
   function guardarCampoInfo() {
