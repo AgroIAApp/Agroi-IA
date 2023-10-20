@@ -218,15 +218,14 @@ export default function MapContainer({
           Authorization: accessToken,
         },
       });
+      nav(`/home/${userID}`);
     } catch (error) {
       setErrorMessage({
         title: 'Error de conexión',
         message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
       });
       setinValid(true);
-      return false;
     }
-    return true; // NO se si es correcto
   }
 
   function editData(endPoint, formData) {
@@ -238,6 +237,7 @@ export default function MapContainer({
           Authorization: accessToken,
         },
       });
+      nav(`/home/${userID}`);
     } catch (error) {
       setErrorMessage({
         title: 'Error de conexión',
@@ -262,16 +262,17 @@ export default function MapContainer({
     formData.append('height', height);
     formData.append('width', width);
     formData.append('image', campoInfo.imagen);
-    let send = false;
+    // let send = false;
     if (edit) {
       // guardar campo editado
       editData(`field/${fieldID}`, formData);
     } else {
-      send = await sendData('field', formData);
+      // send = await sendData('field', formData);
+      await sendData('field', formData);
     }
-    if (send) {
-      nav(`/home/${userID}`);
-    }
+    // if (send) {
+    //   nav(`/home/${userID}`);
+    // }
   }
 
   const okay = () => {
