@@ -7,6 +7,7 @@ import { Card } from 'react-bootstrap';
 import excelent from '../../images/excelent.png';
 import bluewater from '../../images/bluewater.png';
 import dry from '../../images/dry.png';
+import alerta from '../../images/alerta.png';
 import congelado from '../../images/congelado.png';
 
 export default function Diagnostico({ problema }) {
@@ -59,6 +60,14 @@ export default function Diagnostico({ problema }) {
       className: 'diagnostic-class dehydration-class',
       classNameTitle: 'diagnostic-subtitle dehydration-subtitle',
     },
+        PROBLEMA: {
+      name: 'PROBLEMA',
+      translate: 'Problema',
+      message: '¡Atención! Su campo presenta un problema que requiere de su atención. Por favor, acceda al apartado de comunidad para poder establecer el mismo con exactitud',
+      image: alerta,
+      className: 'diagnostic-class dehydration-class',
+      classNameTitle: 'diagnostic-subtitle problema-subtitle',
+    },
   };
   const user = JSON.parse(localStorage.getItem('name')) || {};
   const [diagnostico, setdiagnostico] = useState('DEHYDRATION');
@@ -76,6 +85,8 @@ export default function Diagnostico({ problema }) {
       setdiagnostico('VERY_GOOD');
     }else if (problema === 'excelent') {
       setdiagnostico('EXCELENT');
+    }else if (problema === 'problem') {
+      setdiagnostico('PROBLEMA');
     }
   }, [problema]);
 

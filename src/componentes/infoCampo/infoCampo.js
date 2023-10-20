@@ -400,7 +400,7 @@ export default function InfoCampo() {
   };
 
   const changeProblem = () => {
-    if (problema !== 'very_good') {
+    if (problema !== 'very_good' && problema !== 'problem') {
       setSearchTerm(SOLUTION_KEYS[problema]);
     }
   };
@@ -444,7 +444,7 @@ export default function InfoCampo() {
               cuantosPlots += 1;
               ndviTemp += plot.history[indexAusar].ndvi;
               humedadTemp += plot.history[indexAusar].ndmi;
-              if ((plot.history[indexAusar].diagnostics === 'overhydration' || plot.history[indexAusar].diagnostics === 'frosting' || plot.history[indexAusar].diagnostics === 'dehydration') && problem === '') {
+              if ((plot.history[indexAusar].diagnostics === 'overhydration' || plot.history[indexAusar].diagnostics === 'problem' || plot.history[indexAusar].diagnostics === 'frosting' || plot.history[indexAusar].diagnostics === 'dehydration') && problem === '') {
                 problem = plot.history[indexAusar].diagnostics;
                 isProblema=1;
               }
