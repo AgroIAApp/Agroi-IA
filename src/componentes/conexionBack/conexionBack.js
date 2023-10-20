@@ -5,8 +5,7 @@ const BACKEND_URL = 'http://localhost:8081/';
 export const post = (url, data, options) => axios.post(BACKEND_URL + url, data, options)
   .then((response) => response.data)
   .catch((error) => {
-    // throw error;
-    console.log(error);
+    throw error;
   });
 export const patch = (url, data, options) => axios.patch(BACKEND_URL + url, data, options)
   .then((response) => response.data)

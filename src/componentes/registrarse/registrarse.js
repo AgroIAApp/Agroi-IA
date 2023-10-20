@@ -77,13 +77,12 @@ export default function Registrarse() {
       const data = {
         name: ingresarNombre, birthDate: ingresarFechaNacimiento, email: ingresarCorreo.toLowerCase(), password: ingresarContrasenia,
       };
-      const response = await post('user/', data);
-      if (response) {
+      try {
+        const response = await post('user/', data);
         const id = response.user._id;
         localStorage.setItem('name', JSON.stringify(response.user));
-
         navigate(`/home/${id}`);
-      } else {
+      } catch (error) {
         setInvalid(true);
         setError({
           title: 'Error al registrarse',
