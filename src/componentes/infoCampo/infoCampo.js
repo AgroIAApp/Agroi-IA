@@ -45,7 +45,6 @@ export default function InfoCampo() {
   const [barData, setBarData] = useState([['', crop]]); // VER ESTO
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
-  const [diagnostico, setdiagnostico] = useState(['GOOD']);
   const [erased, setNewErased] = useState([]);
   const [newFeatures, setNewFeatures] = useState([]);
   const [metrosCuadrados, setMetrosCuadrados] = useState([]);
@@ -59,7 +58,6 @@ export default function InfoCampo() {
   const [fieldRest, setField] = useState(field);
   const [actualizarGraf, setActualizarGraf] = useState(1);
   const [cropList, setCropList] = useState(['Todos']);
-  const [isFieldChanging, setIsFieldChanging] = useState(false);
   const nav = useNavigate();
   const today = new Date();
   const traducciones = {
@@ -373,7 +371,7 @@ export default function InfoCampo() {
                 metros += 121;
                 cuantosPlots += 1;
                 ndviTemp += plot.history[indexAusar].ndvi;
-                humedadTemp += plot.history[indexAusar].humidity;
+                humedadTemp += plot.history[indexAusar].ndmi;
               }
             }
           });
@@ -392,7 +390,6 @@ export default function InfoCampo() {
   };
 
   const changeProblem = () => {
-    console.log('el problema essss: ', problema);
     if (problema === 'overhydration') {
       setSearchTerm('higrostatos');
     } else if (problema === 'frosting') {
@@ -438,13 +435,15 @@ export default function InfoCampo() {
               }
               cuantosPlots += 1;
               ndviTemp += plot.history[indexAusar].ndvi;
-              humedadTemp += plot.history[indexAusar].humidity;
-              console.log('problema 1: ', plot.history[indexAusar].diagnostics);
+              humedadTemp += plot.history[indexAusar].ndmi;
               if ((plot.history[indexAusar].diagnostics === 'overhydration' || plot.history[indexAusar].diagnostics === 'frosting' || plot.history[indexAusar].diagnostics === 'dehydration') && problema === '') {
                 setProblema(plot.history[indexAusar].diagnostics);
               }
             }
           });
+          if (problema === ''){
+            setProblema("very_good");
+          }
           ndviTemp = (ndviTemp / cuantosPlots).toFixed(2);
           humedadTemp = (humedadTemp / cuantosPlots).toFixed(2);
           setNdvi(ndviTemp);

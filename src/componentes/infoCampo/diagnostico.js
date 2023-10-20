@@ -70,6 +70,12 @@ export default function Diagnostico({ problema }) {
       setdiagnostico('FROSTING');
     } else if (problema === 'dehydration') {
       setdiagnostico('DEHYDRATION');
+    }else if (problema === 'good') {
+      setdiagnostico('GOOD');
+    }else if (problema === 'very_good') {
+      setdiagnostico('VERY_GOOD');
+    }else if (problema === 'excelent') {
+      setdiagnostico('EXCELENT');
     }
   }, [problema]);
 
@@ -79,7 +85,7 @@ export default function Diagnostico({ problema }) {
 
   return (
     <Card className="cards-wrapper-diagnostico">
-      <img src={image} alt="Imagen 4" style={{ width: '7rem', marginRight: '-1rem', marginLeft: '1rem' }} />
+      <img src={image} alt="Imagen 4" style={{ width: '7rem', marginRight: '-1rem', marginLeft: '1rem', marginTop: '1rem', marginBottom: '1rem' }} />
       <div className="diagnostico-wrapper">
         <div className={classNameTitle}>
           {translate}
