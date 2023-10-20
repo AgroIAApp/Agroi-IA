@@ -66,6 +66,7 @@
 .image-sin-campo-container{
   display: flex;
 }
+
 .image-sin-campo{
   height: 100%;
   width: 100%;
@@ -88,7 +89,6 @@
 
 }
 
-
 .no-campos-container{
   display: flex;
   flex-direction: column;
@@ -104,10 +104,12 @@ a{
    text-decoration: none;
 }
 
-
 /////////////////NO CAMPO CARD
 .campito{
     border-radius: 0.375rem;
+}
+.card-body{
+  align-items: center !important;
 }
 
 .card-header-no-campo{

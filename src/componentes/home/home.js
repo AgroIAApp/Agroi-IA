@@ -107,7 +107,7 @@ export default function Home() {
                   <Card.Text className="card-text-no-campo">
                     ¡Empieza ahora! Crea tu primer campo haciendo click abajo
                   </Card.Text>
-                  <Button variant="primary" onClick={nav(`/agregarCampo/${userID}`)}>Crear Campo</Button>
+                  <Button variant="primary" onClick={() => nav(`/agregarCampo/${userID}`)}>Crear Campo</Button>
                 </Card.Body>
               </Card>
 
