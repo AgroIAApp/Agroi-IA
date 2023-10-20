@@ -209,10 +209,10 @@ export default function MapContainer({
     return true;
   }
 
-  function sendData(endPoint, formData) {
+  async function sendData(endPoint, formData) {
     const accessToken = `Bearer ${userID}`;
     try {
-      post(endPoint, formData, {
+      await post(endPoint, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: accessToken,
@@ -224,7 +224,9 @@ export default function MapContainer({
         message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
       });
       setinValid(true);
+      return false;
     }
+    return true; // NO se si es correcto
   }
 
   function editData(endPoint, formData) {
@@ -245,7 +247,7 @@ export default function MapContainer({
     }
   }
 
-  function guardarCampoInfo() {
+  async function guardarCampoInfo() {
     const valid = validateForm();
     if (!valid) {
       return;
@@ -260,14 +262,16 @@ export default function MapContainer({
     formData.append('height', height);
     formData.append('width', width);
     formData.append('image', campoInfo.imagen);
-
+    let send = false;
     if (edit) {
       // guardar campo editado
       editData(`field/${fieldID}`, formData);
     } else {
-      sendData('field', formData);
+      send = await sendData('field', formData);
     }
-    nav(`/home/${userID}`);
+    if (send) {
+      nav(`/home/${userID}`);
+    }
   }
 
   const okay = () => {
