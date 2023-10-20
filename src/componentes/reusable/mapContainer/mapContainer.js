@@ -211,12 +211,20 @@ export default function MapContainer({
 
   function sendData(endPoint, formData) {
     const accessToken = `Bearer ${userID}`;
-    post(endPoint, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: accessToken,
-      },
-    });
+    try {
+      post(endPoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: accessToken,
+        },
+      });
+    } catch (error) {
+      setErrorMessage({
+        title: 'Error de conexión',
+        message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
+      });
+      setinValid(true);
+    }
   }
 
   function editData(endPoint, formData) {

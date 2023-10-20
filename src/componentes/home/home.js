@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-underscore-dangle */
@@ -19,6 +20,7 @@ import campito from '../../images/campito.jpg';
 import CampoInfoCard from '../reusable/campoInfoCard/campoInfoCard';
 import { CROP_TYPES_KEYS } from '../../constants/plots';
 import { CROP_TYPES_TRANSLATIONS } from '../../constants/translations';
+import ErrorModal from '../reusable/errorFolder/errores';
 
 export default function Home() {
   const { userID } = useParams();
@@ -27,6 +29,8 @@ export default function Home() {
   const user = JSON.parse(localStorage.getItem('name')) || {};
   const [user2, setUser2] = useState(null);
   const nav = useNavigate();
+  const [invalid, setinValid] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({ title: '', message: '' });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,11 +62,20 @@ export default function Home() {
         setImageNames(fetchedImageNames);
       } catch (error) {
         console.error('Error:', error);
+        setErrorMessage({
+          title: 'Error de conexión',
+          message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
+        });
+        setinValid(true);
       }
     };
 
     fetchData();
   }, [userID]);
+
+  const okay = () => {
+    location.reload();
+  };
 
   const truncateString = (str, maxLength) => (str.length > maxLength ? `${str.substring(0, maxLength)}...` : str);
 
@@ -86,40 +99,43 @@ export default function Home() {
   return (
     <div>
       <Header />
-      {user2
-        ? (
-          user2.fields.length > 0
-            ? (
-              <div className="container">
-                <div className="row">
-                  { images.map((image, index) => <CampoInfoCard key={index} index={index} imageId={imageNames[index]} fieldId={user2.fields[index]._id} crops={getCrops(user2.fields[index]._id)}> </CampoInfoCard>)}
+      <div>
+        {invalid && <ErrorModal title={errorMessage.title} message={errorMessage.message} onClick={okay} />}
+        {user2
+          ? (
+            user2.fields.length > 0
+              ? (
+                <div className="container">
+                  <div className="row">
+                    { images.map((image, index) => <CampoInfoCard key={index} index={index} imageId={imageNames[index]} fieldId={user2.fields[index]._id} crops={getCrops(user2.fields[index]._id)}> </CampoInfoCard>)}
+                  </div>
                 </div>
-              </div>
-            )
-            : (
+              )
+              : (
 
-              <Card className="text-center card-no-campo">
-                <Card.Header className="card-header-no-campo">
-                  <Card.Img variant="left" src={campito} className="campito" />
-                </Card.Header>
-                <Card.Body className="home-body">
-                  <Card.Title className="card-title-no-campo">TODAVÍA NO TIENES NINGÚN CAMPO REGISTRADO</Card.Title>
-                  <Card.Text className="card-text-no-campo">
-                    ¡Empieza ahora! Crea tu primer campo haciendo click abajo
-                  </Card.Text>
-                  <Button variant="primary" onClick={() => nav(`/agregarCampo/${userID}`)}>Crear Campo</Button>
-                </Card.Body>
-              </Card>
+                <Card className="text-center card-no-campo">
+                  <Card.Header className="card-header-no-campo">
+                    <Card.Img variant="left" src={campito} className="campito" />
+                  </Card.Header>
+                  <Card.Body className="home-body">
+                    <Card.Title className="card-title-no-campo">TODAVÍA NO TIENES NINGÚN CAMPO REGISTRADO</Card.Title>
+                    <Card.Text className="card-text-no-campo">
+                      ¡Empieza ahora! Crea tu primer campo haciendo click abajo
+                    </Card.Text>
+                    <Button variant="primary" onClick={() => nav(`/agregarCampo/${userID}`)}>Crear Campo</Button>
+                  </Card.Body>
+                </Card>
 
-            )
-        )
-        : (
-          <div className="loader-container">
-            <Loader />
-          </div>
+              )
+          )
+          : (
+            <div className="loader-container">
+              <Loader />
+            </div>
 
-        )}
+          )}
 
+      </div>
     </div>
   );
 }
