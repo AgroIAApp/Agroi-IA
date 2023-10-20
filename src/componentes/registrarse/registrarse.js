@@ -18,6 +18,7 @@ import '../reusable/input_box/input_box.scss'; // LAS CAJITAS DE TEXTO
 import { post } from '../conexionBack/conexionBack';
 import Icon from '../../assets/icons/icon';
 import tractor from '../../images/tractores.png';
+import ErrorModal from '../reusable/errorFolder/errores';
 
 export default function Registrarse() {
   const [ingresarNombre, setIngresarNombre] = useState('');
@@ -77,17 +78,34 @@ export default function Registrarse() {
         name: ingresarNombre, birthDate: ingresarFechaNacimiento, email: ingresarCorreo.toLowerCase(), password: ingresarContrasenia,
       };
       const response = await post('user/', data);
-      const id = response.user._id;
-      localStorage.setItem('name', JSON.stringify(response.user));
+      if (response) {
+        const id = response.user._id;
+        localStorage.setItem('name', JSON.stringify(response.user));
 
-      navigate(`/home/${id}`);
+        navigate(`/home/${id}`);
+      } else {
+        setInvalid(true);
+        setError({
+          title: 'Error al registrarse',
+          message: 'El usuario con el mail ingresado ya existe, pruebe con otro mail',
+        });
+      }
     }
   };
+
+  const okay = () => {
+    setInvalid(false);
+    setError({ title: '', message: '' });
+  };
+
+  console.log(error);
 
   return (
 
     <div className="gradient-background">
       <div>
+        {invalid
+        && <ErrorModal title={error.title} message={error.message} onClick={okay} />}
         <div className="white-rectangle2">
           <div className="flexbox-container2">
             <div className="title-inicio center">
