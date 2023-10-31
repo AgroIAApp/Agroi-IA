@@ -107,7 +107,7 @@ h6{
   width: 100%;
   min-width: 80rem;
   height: 100vh;
-  min-height: 115rem;
+  min-height: 122rem;
   position: relative; 
 }
 
@@ -359,17 +359,17 @@ h6{
 }
 
 .dehydration-class {
-   margin-left: -10.5rem;
+   margin-left: 2rem;
 }
 
 .frosting-class {
-   margin-left: -10.5rem;
-   margin-top: 1.5rem;
+   margin-left: 2rem;
+   margin-top: 0.5rem;
 }
 
 .very-class {
-   margin-left: -7.9rem;
-   margin-top: 1.5rem;
+   margin-left: 2.5rem;
+   margin-top: 0.5rem;
 }
 
 .good-class {
@@ -380,7 +380,7 @@ h6{
 .diagnostic-subtitle{
   font-family: 'Inter', sans-serif;
   //margin-top: -7rem;
-  margin-left: 1rem;
+  margin-left: 2.5rem;
   font-size: 1.5rem;
   font-weight: bold;
   white-space: nowrap;
@@ -392,6 +392,10 @@ h6{
 
 .dehydration-subtitle {
   color: $yellow-diagnostic;
+}
+
+.problema-subtitle {
+  color: red;
 }
 
 .overhydration-subtitle {
