@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable consistent-return */
@@ -71,11 +72,7 @@ export default function InfoCampo() {
     fal_nut: 'FERTILIZANTE',
     maleza: 'HERBICIDA',
     insectos: 'INSECTICIDA',
-    problem: 'problem',
-    good: 'iphone 14',
-    ['very-good']: 'iphone xr',
-    excelent: 'samsung s23',
-    NONE: 'none',
+    very_good: 'iphone xr',
   };
 
   const traducciones = {
@@ -855,11 +852,14 @@ export default function InfoCampo() {
                 <img src={excelent} alt="Imagen 4" style={{ width: '7rem', marginRight: '-1rem', marginLeft: '1rem' }} />
               </Card> */}
             </div>
-            <div className="cards-container">
-              {products.slice(0, 5).map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+            {problema === 'very_good' || problema === 'problem'
+              ? <div /> : (
+                <div className="cards-container">
+                  {products.slice(0, 5).map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              ) }
           </div>
         )
         : (
