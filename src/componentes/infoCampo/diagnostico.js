@@ -63,28 +63,31 @@ export default function Diagnostico({ problema }) {
       className: 'diagnostic-class dehydration-class',
       classNameTitle: 'diagnostic-subtitle dehydration-subtitle',
     },
-        PROBLEMA: {
+    PROBLEMA: {
       name: 'PROBLEMA',
       translate: 'Problema',
       message: '¡Atención! Su campo presenta un problema que requiere de su atención. Por favor, acceda al apartado de comunidad para poder establecer el mismo con exactitud.',
       image: alerta,
       className: 'diagnostic-class dehydration-class',
       classNameTitle: 'diagnostic-subtitle problema-subtitle',
-    }, NUTRIENTE: {
+    },
+    NUTRIENTE: {
       name: 'FALTA DE NUTRIENTES',
       translate: 'Faltan de nutrientes',
       message: '¡Atención! La carencia de nutrientes puede impactar negativamente en el crecimiento de tus cultivos, resultando en una disminución en el rendimiento y la calidad. Asegúrate de proporcionar los nutrientes necesarios para un desarrollo óptimo.',
       image: nutrientes,
       className: 'diagnostic-class dehydration-class',
       classNameTitle: 'diagnostic-subtitle problema-subtitle',
-    }, MALEZA: {
+    },
+    MALEZA: {
       name: 'MALEZA',
       translate: 'Maleza',
       message: '¡Atención! La proliferación de maleza puede perjudicar significativamente tus cultivos, reduciendo su productividad y calidad. Asegúrate de controlar la maleza de manera efectiva para un crecimiento óptimo de tus cultivos.',
       image: maleza,
       className: 'diagnostic-class dehydration-class',
       classNameTitle: 'diagnostic-subtitle problema-subtitle',
-    }, INSECTOS: {
+    },
+    INSECTOS: {
       name: 'INSECTOS',
       translate: 'Plaga de insectos',
       message: '¡Atención! Las plagas de insectos pueden causar daños graves a tus cultivos, disminuyendo su producción y calidad. Asegúrate de implementar medidas de control de plagas para un crecimiento óptimo de tus cultivos.',
@@ -103,19 +106,19 @@ export default function Diagnostico({ problema }) {
       setdiagnostico('FROSTING');
     } else if (problema === 'dehydration') {
       setdiagnostico('DEHYDRATION');
-    }else if (problema === 'good') {
+    } else if (problema === 'good') {
       setdiagnostico('GOOD');
-    }else if (problema === 'very_good') {
+    } else if (problema === 'very_good') {
       setdiagnostico('VERY_GOOD');
-    }else if (problema === 'excelent') {
+    } else if (problema === 'excelent') {
       setdiagnostico('EXCELENT');
-    }else if (problema === 'problem') {
+    } else if (problema === 'problem') {
       setdiagnostico('PROBLEMA');
-    }else if (problema === 'fal_nut') {
+    } else if (problema === 'fal_nut') {
       setdiagnostico('NUTRIENTE');
-    }else if (problema === 'maleza') {
+    } else if (problema === 'maleza') {
       setdiagnostico('MALEZA');
-    }else if (problema === 'insectos') {
+    } else if (problema === 'insectos') {
       setdiagnostico('INSECTOS');
     }
   }, [problema]);
@@ -126,7 +129,13 @@ export default function Diagnostico({ problema }) {
 
   return (
     <Card className="cards-wrapper-diagnostico">
-      <img src={image} alt="Imagen 4" style={{ width: '7rem', marginRight: '-1rem', marginLeft: '1rem', marginTop: '1rem', marginBottom: '1rem' }} />
+      <img
+        src={image}
+        alt="Imagen 4"
+        style={{
+          width: '7rem', marginRight: '-1rem', marginLeft: '1rem', marginTop: '1rem', marginBottom: '1rem',
+        }}
+      />
       <div className="diagnostico-wrapper">
         <div className={classNameTitle}>
           {translate}
