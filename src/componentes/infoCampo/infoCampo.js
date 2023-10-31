@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-computed-key */
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable consistent-return */
 /* eslint-disable prefer-destructuring */
@@ -70,6 +71,11 @@ export default function InfoCampo() {
     fal_nut: 'FERTILIZANTE',
     maleza: 'HERBICIDA',
     insectos: 'INSECTICIDA',
+    problem: 'problem',
+    good: 'iphone 14',
+    ['very-good']: 'iphone xr',
+    excelent: 'samsung s23',
+    NONE: 'none',
   };
 
   const traducciones = {
