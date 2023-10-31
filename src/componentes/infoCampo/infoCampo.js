@@ -38,6 +38,7 @@ import IndicatorContext from './indicatorContext';
 import { COLOR_RANGES } from '../../constants/ndviColors';
 
 export default function InfoCampo() {
+  const [problema, setProblema] = useState('');
   const { userID } = useParams();
   const { field } = useParams();
   const user = JSON.parse(localStorage.getItem('name')) || {};
@@ -45,9 +46,8 @@ export default function InfoCampo() {
   const [selectedTimePeriod, setSelectedTimePeriod] = useState('LastWeek');
   const [lineData, setLineData] = useState([['', crop]]); // VER ESTO
   const [barData, setBarData] = useState([['', crop]]); // VER ESTO
-  const [searchTerm, setSearchTerm] = useState('lampara');
+  const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
-  const [diagnostico, setdiagnostico] = useState(['GOOD']);
   const [erased, setNewErased] = useState([]);
   const [newFeatures, setNewFeatures] = useState([]);
   const [metrosCuadrados, setMetrosCuadrados] = useState([]);
@@ -61,9 +61,17 @@ export default function InfoCampo() {
   const [fieldRest, setField] = useState(field);
   const [actualizarGraf, setActualizarGraf] = useState(1);
   const [cropList, setCropList] = useState(['Todos']);
-  const [isFieldChanging, setIsFieldChanging] = useState(false);
   const nav = useNavigate();
   const today = new Date();
+
+  const SOLUTION_KEYS = {
+    dehydration: 'ACONDICIONADOR DE SUELO',
+    frosting: 'TELA ANTI HELADA',
+    fal_nut: 'FERTILIZANTE',
+    maleza: 'HERBICIDA',
+    insectos: 'INSECTICIDA',
+  };
+
   const traducciones = {
     Girasol: {
       cultivo: 'sunflower',
@@ -94,6 +102,7 @@ export default function InfoCampo() {
           },
         });
         setUser2(user22);
+        console.log('el usuario es: ', user22);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -322,6 +331,7 @@ export default function InfoCampo() {
   };
 
   const handleSearch = async () => {
+    console.log('voy a buscar: ', searchTerm);
     try {
       const response = await axios.get(
         `https://api.mercadolibre.com/sites/MLA/search?q=${searchTerm}`,
@@ -360,7 +370,7 @@ export default function InfoCampo() {
       user2.fields.forEach((fiel, index) => {
         if (fiel._id === fieldRest) {
           user2.fields[index].plots.forEach((plot) => {
-            if (plot.crop === cultivo || crop === 'Todos') {
+            if (plot.crop === cultivo || (crop === 'Todos' && plot.crop !== 'none')) {
               diferenciaMenor = Number.MAX_VALUE;
               huboAlguno = false;
               let indexAusar = 0;
@@ -375,20 +385,20 @@ export default function InfoCampo() {
                   }
                 }
               });
-              if ((plot.history[indexAusar].diagnostics === 'excelent' || plot.history[indexAusar].diagnostics === 'very_good' || plot.history[indexAusar].diagnostics === 'good') && huboAlguno) {
+              if ((plot.history[indexAusar].diagnostics === 'excelent' || plot.history[indexAusar].diagnostics === 'very_good' || plot.history[indexAusar].diagnostics === 'good' || plot.history[indexAusar].diagnostics === 'none') && huboAlguno) {
                 sano += 121;
               } if (huboAlguno) {
                 metros += 121;
                 cuantosPlots += 1;
                 ndviTemp += plot.history[indexAusar].ndvi;
-                humedadTemp += plot.history[indexAusar].humidity;
+                humedadTemp += plot.history[indexAusar].ndmi;
               }
             }
           });
           ndviTemp = (ndviTemp / cuantosPlots).toFixed(2);
           humedadTemp = (humedadTemp / cuantosPlots).toFixed(2);
-          const porcentajeSanou = (sano * 100) / metros;
-          const porcentajeSanoRedondeado = parseFloat(porcentajeSanou).toFixed(2);
+          const porcentajeSanou = sano;
+          const porcentajeSanoRedondeado = porcentajeSanou;
           setporcentajeSanoviejo(Math.round(((porcentajeSano - porcentajeSanoRedondeado) / Math.abs(porcentajeSanoRedondeado)) * 100));
           setNdviviejo(Math.round(((ndvi - ndviTemp) / Math.abs(ndviTemp)) * 100));
           setHumedadviejo(Math.round(((humedad - humedadTemp) / Math.abs(humedadTemp)) * 100));
@@ -399,10 +409,18 @@ export default function InfoCampo() {
     }
   };
 
+  const changeProblem = () => {
+    if (problema !== 'very_good' && problema !== 'problem') {
+      setSearchTerm(SOLUTION_KEYS[problema]);
+    }
+  };
+
   const metrics = () => {
     setporcentajeSano();
+    let isProblema = 0;
     let metros = 0;
     let sano = 0;
+    let problem = '';
     const cultivo = traducciones[crop].cultivo;
     let hayDatos = false;
     let ndviTemp = 0;
@@ -414,7 +432,7 @@ export default function InfoCampo() {
       user2.fields.forEach((fiel, index) => {
         if (fiel._id === fieldRest) {
           user2.fields[index].plots.forEach((plot) => {
-            if (plot.crop === cultivo || crop === 'Todos') {
+            if (plot.crop === cultivo || (crop === 'Todos' && plot.crop !== 'none')) {
               diferenciaMenor = Number.MAX_VALUE;
               metros += 121;
               let indexAusar = 0;
@@ -428,40 +446,36 @@ export default function InfoCampo() {
                   }
                 }
               });
-              if (plot.history[indexAusar].diagnostics === 'excelent' || plot.history[indexAusar].diagnostics === 'very_good' || plot.history[indexAusar].diagnostics === 'good') {
+              if (plot.history[indexAusar].diagnostics === 'excelent' || plot.history[indexAusar].diagnostics === 'very_good' || plot.history[indexAusar].diagnostics === 'good' || plot.history[indexAusar].diagnostics === 'none') {
                 sano += 121;
               } if (plot.history[indexAusar].diagnostics != null) {
                 hayDatos = true;
               }
               cuantosPlots += 1;
               ndviTemp += plot.history[indexAusar].ndvi;
-              humedadTemp += plot.history[indexAusar].humidity;
+              humedadTemp += plot.history[indexAusar].ndmi;
+              if ((plot.history[indexAusar].diagnostics === 'overhydration' || plot.history[indexAusar].diagnostics === 'problem' || plot.history[indexAusar].diagnostics === 'frosting' || plot.history[indexAusar].diagnostics === 'dehydration' || plot.history[indexAusar].diagnostics === 'fal_nut' || plot.history[indexAusar].diagnostics === 'maleza' || plot.history[indexAusar].diagnostics === 'insectos') && problem === '') {
+                problem = plot.history[indexAusar].diagnostics;
+                isProblema = 1;
+              }
             }
           });
+          if (problem === '' && isProblema === 0) {
+            problem = 'very_good';
+          }
+          setProblema(problem);
           ndviTemp = (ndviTemp / cuantosPlots).toFixed(2);
           humedadTemp = (humedadTemp / cuantosPlots).toFixed(2);
           setNdvi(ndviTemp);
           setHumedad(humedadTemp);
-          const porcentajeSanou = (sano * 100) / metros;
-          const porcentajeSanoRedondeado = parseFloat(porcentajeSanou).toFixed(1);
+          const porcentajeSanou = sano;
+          const porcentajeSanoRedondeado = porcentajeSanou;
           if (hayDatos) { setporcentajeSano(porcentajeSanoRedondeado); }
           setMetrosCuadrados(metros);
           return;
         }
       });
     }
-  };
-
-  const existeCrop = (cropp) => {
-    let tru = false;
-    if (user2 && user2.fields) {
-      user2.fields.forEach((fiel, index) => {
-        if (fiel._id === fieldRest) {
-          tru = (user2.fields[index].plots.some((plot) => plot.crop === cropp));
-        }
-      });
-    }
-    return tru;
   };
 
   const getCrops = () => {
@@ -492,6 +506,10 @@ export default function InfoCampo() {
   };
 
   useEffect(() => {
+    changeProblem();
+  }, [problema]);
+
+  useEffect(() => {
     metrics();
   }, [crop]);
 
@@ -501,12 +519,12 @@ export default function InfoCampo() {
     if (user2 && user2.fields) {
       user2.fields.forEach((fiel, index) => {
         if (fiel._id === fieldRest && user2.fields[index].history.years.length > 0) {
-          handleDataChange(user2.fields[index].history.years, user2.fields[index].history.sown, 'Superficie sembrada', 'Años', 1);
-          handleDataChange(user2.fields[index].history.years, user2.fields[index].history.harvested, 'Superficie cosechada', 'Años', 2);
+          handleDataChange(user2.fields[index].history.years, user2.fields[index].history.sown, 'Años', 'Superficie sembrada', 1);
+          handleDataChange(user2.fields[index].history.years, user2.fields[index].history.harvested, 'Años', 'Superficie cosechada', 2);
         }
       });
     }
-    // console.log(user2);
+    console.log('el usuario es: ', user2);
   }, [user2]);
 
   useEffect(() => {
@@ -523,7 +541,7 @@ export default function InfoCampo() {
 
   useEffect(() => {
     metricsForMenu();
-    // console.log(user2);
+    console.log('el usuario es: ', user2);
   }, [selectedTimePeriod]);
 
   useEffect(() => {
@@ -545,9 +563,12 @@ export default function InfoCampo() {
   }, [fieldRest]);
 
   useEffect(() => {
-    handleSearch();
     metrics();
   }, []);
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchTerm]);
 
   useEffect(() => {
     metricsForMenu();
@@ -648,8 +669,8 @@ export default function InfoCampo() {
                 </div>
                 {(porcentajeSano < 0 || porcentajeSano >= 0) && porcentajeSano !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle2">
-                    {porcentajeSano}
-                    %
+                    {porcentajeSano.toLocaleString()}
+                    <span>m2</span>
                   </div>
                 ) : (
                   <div className="cards-Subtitle-no-data cards-Subtitle2">
@@ -786,7 +807,7 @@ export default function InfoCampo() {
                   <Chart
                     width="40rem"
                     height="25rem"
-                    chartType="LineChart"
+                    chartType="ColumnChart"
                     loader={<div>Loading Chart</div>}
                     data={lineData}
                     options={lineChartOptions}
@@ -823,10 +844,10 @@ export default function InfoCampo() {
                 </div>
               )}
             <div className="cards-container">
-              <Diagnostico diagnostico={diagnostico} />
-              <Card className="cards-wrapper-diagnostico">
+              <Diagnostico problema={problema} />
+              {/* <Card className="cards-wrapper-diagnostico">
                 <img src={excelent} alt="Imagen 4" style={{ width: '7rem', marginRight: '-1rem', marginLeft: '1rem' }} />
-              </Card>
+              </Card> */}
             </div>
             <div className="cards-container">
               {products.slice(0, 5).map((product) => (
