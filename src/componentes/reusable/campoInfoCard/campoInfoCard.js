@@ -36,29 +36,27 @@ export default function CampoInfoCard({
           </Card.Header>
           <Card.Body>
             <Card.Title>{imageId}</Card.Title>
-            <Card.Text>
-              <ul>
-                <li>
-                  <div className="d-flex">
-                    <h6 className="underline">
-                      Cultivos:
-                    </h6>
-                    {' '}
-                    {crops.join(', ')}
+            <ul>
+              <li>
+                <div className="d-flex">
+                  <h6 className="underline">
+                    Cultivos:
+                  </h6>
+                  {' '}
+                  {crops.join(', ')}
 
-                  </div>
-                </li>
-                <li>
-                  <div className="d-flex">
-                    <h6 className="underline">
-                      Estado:
-                    </h6>
-                    {' '}
-                    Sano
-                  </div>
-                </li>
-              </ul>
-            </Card.Text>
+                </div>
+              </li>
+              <li>
+                <div className="d-flex">
+                  <h6 className="underline">
+                    Estado:
+                  </h6>
+                  {' '}
+                  Sano
+                </div>
+              </li>
+            </ul>
           </Card.Body>
           <Card.Footer>
             <small className="text-muted">Last updated 3 mins ago</small>

@@ -1,7 +1,9 @@
 /* eslint-disable max-len */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { lineToPolygon, difference, booleanPointInPolygon } from '@turf/turf';
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -14,6 +16,8 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import './agroMap.scss';
 import styles from './styles';
 import { CROP_TYPES_TRANSLATIONS } from '../../../constants/translations';
+import IndicatorContext from '../../infoCampo/indicatorContext';
+import { addColor } from './funcionesMapa';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
@@ -31,11 +35,13 @@ function splitPolygon(draw, polygon) {
 }
 
 function AgroMap({
-  coordinates, changeCoordinates, addFeatures, removeFeature, feats, featErased, edit,
+  coordinates, changeCoordinates, addFeatures, removeFeature, feats, featErased, edit, view,
 }) {
   const mapContainer = useRef(null);
   const drawRef = useRef(null);
   const mapRef = useRef(null);
+  const indRef = useRef(null);
+  const selectedIndicator = useContext(IndicatorContext);
   function removeFeatureMap() {
     if (drawRef.current) {
       const { features } = drawRef.current.getAll();
@@ -164,9 +170,10 @@ function AgroMap({
       countries: 'AR',
       bbox: [-73.560222, -55.057499, -53.637810, -21.781235], // Limitamos resultados a solo arg
       container: geocoderContainer,
-      marker: {
-        color: 'red',
-      },
+      // marker: {
+      //   color: 'red',
+      // },
+      marker: false,
       localGeocoder: coordinatesGeocoder,
       reverseGeocode: true,
     });
@@ -183,13 +190,13 @@ function AgroMap({
       map.setCenter(center);
     });
 
-    const marker = new mapboxgl.Marker({ draggable: false, color: 'red' });
+    // const marker = new mapboxgl.Marker({ draggable: false, color: 'red' });
     geocoder.on('result', (e) => {
-      marker.remove(map);
-      // eslint-disable-next-line no-underscore-dangle
-      marker
-        .setLngLat(e.result.center)
-        .addTo(map);
+      // marker.remove(map);
+      // // eslint-disable-next-line no-underscore-dangle
+      // marker
+      //   .setLngLat(e.result.center)
+      //   .addTo(map);
       map.flyTo({ center: e.result.center, zoom: 17 });
     });
     const Colors = ['#21f216', '#16f2ee', '#f23400', '#be03fc', '#f29e0c', '#73b564', '#f08473', '#696261'];
@@ -201,13 +208,18 @@ function AgroMap({
       closeOnClick: false,
     });
 
-    map.on('mousemove', (e) => {
+    const hoverFeature = (e) => {
       map.getCanvas().style.cursor = 'pointer';
       const { lngLat } = e;
       const coords = [lngLat.lng, lngLat.lat];
       let hoveredFeature = '';
+      const hasPlots = feats.length > 0 ? feats[0].polygon.type === 'FeatureCollection' : false;
       if (edit) {
-        if (feats[0].polygon.type === 'FeatureCollection') {
+        if (hasPlots) {
+          const allFeats = [];
+          feats.map((feat) => allFeats.push(...feat.polygon.features));
+          const feats2 = allFeats.filter((poly) => booleanPointInPolygon(coords, poly))[0];
+          hoveredFeature = feats2;
           // console.log('ACA LOGICA DE PLOTS');
         } else {
           const feats2 = feats.filter((poly) => booleanPointInPolygon(coords, poly.polygon))[0];
@@ -215,14 +227,26 @@ function AgroMap({
         }
       }
       if (hoveredFeature !== '' && hoveredFeature) {
-        popup.setLngLat(e.lngLat)
-          .setText(CROP_TYPES_TRANSLATIONS[hoveredFeature.crop])
-          .addTo(map);
+        if (hasPlots) {
+          const { indicator } = indRef.current;
+
+          const plotInfo = JSON.parse(hoveredFeature.properties.plotInfo);
+          const text = `${indicator} ${plotInfo[indicator]}`;
+          popup.setLngLat(e.lngLat)
+            .setText(text)
+            .addTo(map);
+        } else if (edit) {
+          popup.setLngLat(e.lngLat)
+            .setText(CROP_TYPES_TRANSLATIONS[hoveredFeature.crop])
+            .addTo(map);
+        }
       } else {
         map.getCanvas().style.cursor = '';
         popup.remove();
       }
-    });
+    };
+
+    map.on('mousemove', hoverFeature);
 
     map.on('mouseleave', () => {
       map.getCanvas().style.cursor = '';
@@ -268,6 +292,28 @@ function AgroMap({
     reDrawCrops();
   }, [feats]);
 
+  const changeColor = () => {
+    if (edit && drawRef.current && feats.length > 0) {
+      const allFeatures = drawRef.current.getAll().features;
+      allFeatures.forEach((feature) => {
+        const newColor = addColor(feature, selectedIndicator.indicator).properties.fillColor;
+        drawRef.current.setFeatureProperty(feature.id, 'fillColor', newColor);
+      });
+    }
+  };
+
+  // example
+  // this.mapboxDraw.setFeatureProperty(id, 'hover', value)
+  // this.mapboxDraw.add(this.mapboxDraw.get(id))
+
+  useEffect(() => {
+    console.log(selectedIndicator);
+    if (view) {
+      changeColor();
+      indRef.current = selectedIndicator;
+    }
+  }, [selectedIndicator]);
+
   return (
     <div ref={mapContainer} className="mapa" style={{ height: '100%', borderRadius: '10px' }} />
   );
@@ -283,4 +329,5 @@ AgroMap.propTypes = {
   feats: PropTypes.arrayOf(PropTypes.object).isRequired,
   featErased: PropTypes.string.isRequired,
   edit: PropTypes.bool.isRequired,
+  view: PropTypes.bool.isRequired,
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable consistent-return */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable jsx-a11y/img-redundant-alt */
@@ -10,7 +11,7 @@
 /* eslint-disable no-new */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './infoCampo.scss';
 import '../verCultivos/verCultivos.scss';
@@ -33,6 +34,8 @@ import Loader from '../reusable/loader/loader';
 import vector1 from '../../images/vector1.jpg';
 import { CROP_TYPES_KEYS } from '../../constants/plots';
 import { CROP_TYPES_TRANSLATIONS } from '../../constants/translations';
+import IndicatorContext from './indicatorContext';
+import { COLOR_RANGES } from '../../constants/ndviColors';
 
 export default function InfoCampo() {
   const [problema, setProblema] = useState('');
@@ -61,13 +64,13 @@ export default function InfoCampo() {
   const nav = useNavigate();
   const today = new Date();
 
-       const SOLUTION_KEYS = {
-  dehydration: "ACONDICIONADOR DE SUELO",
-  frosting: "TELA ANTI HELADA",
-  fal_nut: "FERTILIZANTE",
-  maleza: "HERBICIDA",
-  insectos: "INSECTICIDA",
-};
+  const SOLUTION_KEYS = {
+    dehydration: 'ACONDICIONADOR DE SUELO',
+    frosting: 'TELA ANTI HELADA',
+    fal_nut: 'FERTILIZANTE',
+    maleza: 'HERBICIDA',
+    insectos: 'INSECTICIDA',
+  };
 
   const traducciones = {
     Girasol: {
@@ -107,6 +110,14 @@ export default function InfoCampo() {
 
     fetchData();
   }, [userID]);
+
+  const [indicator, setIndicator] = useState('ndvi');
+  // const selectedIndicator = useContext();
+
+  const handleRadioChange = (event) => {
+    const newValue = event.target.value;
+    setIndicator(newValue);
+  };
 
   const [campoInfo, setCampoInfo] = useState({
     nombreCampo: '',
@@ -359,7 +370,7 @@ export default function InfoCampo() {
       user2.fields.forEach((fiel, index) => {
         if (fiel._id === fieldRest) {
           user2.fields[index].plots.forEach((plot) => {
-            if (plot.crop === cultivo || (crop === 'Todos' && plot.crop !=='none')) {
+            if (plot.crop === cultivo || (crop === 'Todos' && plot.crop !== 'none')) {
               diferenciaMenor = Number.MAX_VALUE;
               huboAlguno = false;
               let indexAusar = 0;
@@ -406,10 +417,10 @@ export default function InfoCampo() {
 
   const metrics = () => {
     setporcentajeSano();
-    let isProblema= 0;
+    let isProblema = 0;
     let metros = 0;
     let sano = 0;
-    let problem='';
+    let problem = '';
     const cultivo = traducciones[crop].cultivo;
     let hayDatos = false;
     let ndviTemp = 0;
@@ -421,7 +432,7 @@ export default function InfoCampo() {
       user2.fields.forEach((fiel, index) => {
         if (fiel._id === fieldRest) {
           user2.fields[index].plots.forEach((plot) => {
-            if (plot.crop === cultivo || (crop === 'Todos' && plot.crop !=='none')) {
+            if (plot.crop === cultivo || (crop === 'Todos' && plot.crop !== 'none')) {
               diferenciaMenor = Number.MAX_VALUE;
               metros += 121;
               let indexAusar = 0;
@@ -445,12 +456,12 @@ export default function InfoCampo() {
               humedadTemp += plot.history[indexAusar].ndmi;
               if ((plot.history[indexAusar].diagnostics === 'overhydration' || plot.history[indexAusar].diagnostics === 'problem' || plot.history[indexAusar].diagnostics === 'frosting' || plot.history[indexAusar].diagnostics === 'dehydration' || plot.history[indexAusar].diagnostics === 'fal_nut' || plot.history[indexAusar].diagnostics === 'maleza' || plot.history[indexAusar].diagnostics === 'insectos') && problem === '') {
                 problem = plot.history[indexAusar].diagnostics;
-                isProblema=1;
+                isProblema = 1;
               }
             }
           });
-          if (problem === '' && isProblema===0){
-            problem = "very_good";
+          if (problem === '' && isProblema === 0) {
+            problem = 'very_good';
           }
           setProblema(problem);
           ndviTemp = (ndviTemp / cuantosPlots).toFixed(2);
@@ -727,21 +738,24 @@ export default function InfoCampo() {
             </div>
             <div className="cards-container2">
               <Card className="mapa-card max-content">
-                <VerCampo campoInfo={campoInfo} crop={crop} />
+                <IndicatorContext.Provider value={{ indicator }}>
+                  <VerCampo campoInfo={campoInfo} crop={crop} />
+                </IndicatorContext.Provider>
               </Card>
               <Card className="info-mapa derecha min-content">
-                <Card.Body className="d-flex flex-column">
+                <Card.Body className="d-flex flex-column justify-content-between">
                   <Card.Title className="card-title-no-campo">ÍNDICES</Card.Title>
                   <Form>
-                    <div key="inline-radio" className="mb-3 d-flex indices">
+                    <div key="inline-radio" className="mb-1 d-flex indices">
                       <Form.Check
                         inline
                         label="NDVI"
                         name="group1"
                         type="radio"
                         id="inline-radio-1"
-                        onChange={console.log('hola')}
-                        checked
+                        value="ndvi"
+                        onChange={handleRadioChange}
+                        checked={indicator === 'ndvi'}
                       />
                       <Form.Check
                         inline
@@ -749,8 +763,9 @@ export default function InfoCampo() {
                         name="group1"
                         type="radio"
                         id="inline-radio-2"
-                        onChange={console.log('hola')}
-                        checked={false}
+                        value="ndsi"
+                        onChange={handleRadioChange}
+                        checked={indicator === 'ndsi'}
                       />
                       <Form.Check
                         inline
@@ -758,20 +773,23 @@ export default function InfoCampo() {
                         name="group1"
                         type="radio"
                         id="inline-radio-3"
-                        onChange={console.log('hola')}
-                        checked={false}
-                      />
-                      <Form.Check
-                        inline
-                        label="Color real"
-                        name="group1"
-                        type="radio"
-                        id="inline-radio-3"
-                        onChange={console.log('hola')}
-                        checked={false}
+                        value="ndmi"
+                        onChange={handleRadioChange}
+                        checked={indicator === 'ndmi'}
                       />
                     </div>
                   </Form>
+                  <div className="mb-1 indicator-ranges">
+                    {COLOR_RANGES[indicator].map(({ interval, color }) => (
+                      <div className="range-container">
+                        <div className="rango-color" style={{ backgroundColor: color }} />
+                        <p className="rango-interval">
+                          {interval}
+                          {' '}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                   <Button variant="primary" onClick={() => nav(`/editarCampo/${userID}/${field}`)}>Editar Campo</Button>
                 </Card.Body>
               </Card>

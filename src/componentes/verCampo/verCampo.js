@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { get } from '../conexionBack/conexionBack';
@@ -8,6 +8,7 @@ import Loader from '../reusable/loader/loader';
 import AgroMap from '../reusable/map/agroMap';
 import { CROP_TYPES_TRANSLATIONS } from '../../constants/translations';
 import './verCampo.scss';
+import IndicatorContext from '../infoCampo/indicatorContext';
 
 export default function VerCampo({ crop }) {
   const { field } = useParams();
@@ -30,12 +31,12 @@ export default function VerCampo({ crop }) {
   useEffect(() => {
     getField();
   }, [field]);
-
+  const selectedIndicator = useContext(IndicatorContext);
   useEffect(() => {
     // Update campo variable when userData changes
     setIsLoading(true);
-    if (campo) {
-      setCampoFeatures(createHeatmap(campo));
+    if (campo && selectedIndicator) {
+      setCampoFeatures(createHeatmap(campo, selectedIndicator.indicator));
     }
   }, [campo]);
 
@@ -70,6 +71,7 @@ export default function VerCampo({ crop }) {
             feats={filterCrops()}
             featErased={null}
             edit
+            view
           />
         )}
     </div>

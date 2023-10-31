@@ -209,27 +209,45 @@ export default function MapContainer({
     return true;
   }
 
-  function sendData(endPoint, formData) {
+  async function sendData(endPoint, formData) {
     const accessToken = `Bearer ${userID}`;
-    post(endPoint, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: accessToken,
-      },
-    });
+    try {
+      await post(endPoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: accessToken,
+        },
+      });
+      nav(`/home/${userID}`);
+    } catch (error) {
+      setErrorMessage({
+        title: 'Error de conexión',
+        message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
+      });
+      setinValid(true);
+    }
   }
 
   function editData(endPoint, formData) {
     const accessToken = `Bearer ${userID}`;
-    patch(endPoint, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: accessToken,
-      },
-    });
+    try {
+      patch(endPoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: accessToken,
+        },
+      });
+      nav(`/home/${userID}`);
+    } catch (error) {
+      setErrorMessage({
+        title: 'Error de conexión',
+        message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
+      });
+      setinValid(true);
+    }
   }
 
-  function guardarCampoInfo() {
+  async function guardarCampoInfo() {
     const valid = validateForm();
     if (!valid) {
       return;
@@ -244,14 +262,17 @@ export default function MapContainer({
     formData.append('height', height);
     formData.append('width', width);
     formData.append('image', campoInfo.imagen);
-
+    // let send = false;
     if (edit) {
       // guardar campo editado
       editData(`field/${fieldID}`, formData);
     } else {
-      sendData('field', formData);
+      // send = await sendData('field', formData);
+      await sendData('field', formData);
     }
-    nav(`/home/${userID}`);
+    // if (send) {
+    //   nav(`/home/${userID}`);
+    // }
   }
 
   const okay = () => {

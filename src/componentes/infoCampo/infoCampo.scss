@@ -15,6 +15,28 @@
   display: inline-flex !important;
   text-align: center;
 }
+.indicator-ranges{
+    border: 1px solid black !important;
+}
+
+.rango-color{
+  border: 1px solid black !important;
+  width: 2rem;
+  height: 1rem;
+  margin: 0.2rem;
+}
+
+.range-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.rango-interval{
+  margin-left: 0.2rem;
+  margin-bottom: 0 !important;
+}
 
 h6{
   margin-bottom: 0 !important;
