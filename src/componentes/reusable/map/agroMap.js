@@ -170,9 +170,10 @@ function AgroMap({
       countries: 'AR',
       bbox: [-73.560222, -55.057499, -53.637810, -21.781235], // Limitamos resultados a solo arg
       container: geocoderContainer,
-      marker: {
-        color: 'red',
-      },
+      // marker: {
+      //   color: 'red',
+      // },
+      marker: false,
       localGeocoder: coordinatesGeocoder,
       reverseGeocode: true,
     });
@@ -189,13 +190,13 @@ function AgroMap({
       map.setCenter(center);
     });
 
-    const marker = new mapboxgl.Marker({ draggable: false, color: 'red' });
+    // const marker = new mapboxgl.Marker({ draggable: false, color: 'red' });
     geocoder.on('result', (e) => {
-      marker.remove(map);
-      // eslint-disable-next-line no-underscore-dangle
-      marker
-        .setLngLat(e.result.center)
-        .addTo(map);
+      // marker.remove(map);
+      // // eslint-disable-next-line no-underscore-dangle
+      // marker
+      //   .setLngLat(e.result.center)
+      //   .addTo(map);
       map.flyTo({ center: e.result.center, zoom: 17 });
     });
     const Colors = ['#21f216', '#16f2ee', '#f23400', '#be03fc', '#f29e0c', '#73b564', '#f08473', '#696261'];
