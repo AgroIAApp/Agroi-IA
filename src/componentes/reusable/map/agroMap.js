@@ -227,14 +227,8 @@ function AgroMap({
       }
       if (hoveredFeature !== '' && hoveredFeature) {
         if (hasPlots) {
-          let { indicator } = indRef.current;
+          const { indicator } = indRef.current;
 
-          // SACAR CUANDO CAMBIE LOS INDICADORES DEL BACK
-          if (indicator === 'ndsi') {
-            indicator = 'frost';
-          } else if (indicator === 'ndmi') {
-            indicator = 'humidity';
-          }
           const plotInfo = JSON.parse(hoveredFeature.properties.plotInfo);
           const text = `${indicator} ${plotInfo[indicator]}`;
           popup.setLngLat(e.lngLat)

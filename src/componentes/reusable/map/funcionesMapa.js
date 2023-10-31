@@ -26,14 +26,7 @@ const getPlotColor = (plotInfo, selectedIndicator) => {
   //   console.log("No existe ",selectedIndicator)
   // }
 
-  // TODO ESTO SE TIENE QUE SACAR CUANDO CAMBIE EL BACK
-  let newSelected = selectedIndicator;
-  if (selectedIndicator === 'ndsi') {
-    newSelected = 'frost';
-  } else if (selectedIndicator === 'ndmi') {
-    newSelected = 'humidity';
-  }
-  const indicator = plotInfo[newSelected];
+  const indicator = plotInfo[selectedIndicator];
   const colorRange = COLOR_RANGES[selectedIndicator];
   const matchingRange = colorRange.find((range) => indicator >= range.min && indicator <= range.max);
   return matchingRange ? matchingRange.color : '#5e5d5c';
