@@ -852,7 +852,7 @@ export default function InfoCampo() {
                 <img src={excelent} alt="Imagen 4" style={{ width: '7rem', marginRight: '-1rem', marginLeft: '1rem' }} />
               </Card> */}
             </div>
-            {problema === 'very_good' || problema === 'problem'
+            {problema === 'very_good' || problema === 'problem' || problema === ''
               ? <div /> : (
                 <div className="cards-container">
                   {products.slice(0, 5).map((product) => (
