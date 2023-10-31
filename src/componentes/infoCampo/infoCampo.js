@@ -64,10 +64,9 @@ export default function InfoCampo() {
        const SOLUTION_KEYS = {
   dehydration: "ACONDICIONADOR DE SUELO",
   frosting: "TELA ANTI HELADA",
-  fal_nut_1: "NUTRIENTE 1",
-  fal_nut_2: "NUTRIENTE 2",
-  plag_1: "MATA PLAGA 1",
-  plag_2: "MATA PLAGA 2",
+  fal_nut: "FERTILIZANTE",
+  maleza: "HERBICIDA",
+  insectos: "INSECTICIDA",
 };
 
   const traducciones = {
@@ -444,7 +443,7 @@ export default function InfoCampo() {
               cuantosPlots += 1;
               ndviTemp += plot.history[indexAusar].ndvi;
               humedadTemp += plot.history[indexAusar].ndmi;
-              if ((plot.history[indexAusar].diagnostics === 'overhydration' || plot.history[indexAusar].diagnostics === 'problem' || plot.history[indexAusar].diagnostics === 'frosting' || plot.history[indexAusar].diagnostics === 'dehydration') && problem === '') {
+              if ((plot.history[indexAusar].diagnostics === 'overhydration' || plot.history[indexAusar].diagnostics === 'problem' || plot.history[indexAusar].diagnostics === 'frosting' || plot.history[indexAusar].diagnostics === 'dehydration' || plot.history[indexAusar].diagnostics === 'fal_nut' || plot.history[indexAusar].diagnostics === 'maleza' || plot.history[indexAusar].diagnostics === 'insectos') && problem === '') {
                 problem = plot.history[indexAusar].diagnostics;
                 isProblema=1;
               }

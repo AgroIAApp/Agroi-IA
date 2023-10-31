@@ -9,6 +9,9 @@ import bluewater from '../../images/bluewater.png';
 import dry from '../../images/dry.png';
 import alerta from '../../images/alerta.png';
 import congelado from '../../images/congelado.png';
+import maleza from '../../images/maleza.png';
+import nutrientes from '../../images/nutrientes.png';
+import insecto from '../../images/insecto.png';
 
 export default function Diagnostico({ problema }) {
   const diagnosticKeys = {
@@ -63,8 +66,29 @@ export default function Diagnostico({ problema }) {
         PROBLEMA: {
       name: 'PROBLEMA',
       translate: 'Problema',
-      message: '¡Atención! Su campo presenta un problema que requiere de su atención. Por favor, acceda al apartado de comunidad para poder establecer el mismo con exactitud',
+      message: '¡Atención! Su campo presenta un problema que requiere de su atención. Por favor, acceda al apartado de comunidad para poder establecer el mismo con exactitud.',
       image: alerta,
+      className: 'diagnostic-class dehydration-class',
+      classNameTitle: 'diagnostic-subtitle problema-subtitle',
+    }, NUTRIENTE: {
+      name: 'FALTA DE NUTRIENTES',
+      translate: 'Faltan de nutrientes',
+      message: '¡Atención! La carencia de nutrientes puede impactar negativamente en el crecimiento de tus cultivos, resultando en una disminución en el rendimiento y la calidad. Asegúrate de proporcionar los nutrientes necesarios para un desarrollo óptimo.',
+      image: nutrientes,
+      className: 'diagnostic-class dehydration-class',
+      classNameTitle: 'diagnostic-subtitle problema-subtitle',
+    }, MALEZA: {
+      name: 'MALEZA',
+      translate: 'Maleza',
+      message: '¡Atención! La proliferación de maleza puede perjudicar significativamente tus cultivos, reduciendo su productividad y calidad. Asegúrate de controlar la maleza de manera efectiva para un crecimiento óptimo de tus cultivos.',
+      image: maleza,
+      className: 'diagnostic-class dehydration-class',
+      classNameTitle: 'diagnostic-subtitle problema-subtitle',
+    }, INSECTOS: {
+      name: 'INSECTOS',
+      translate: 'Plaga de insectos',
+      message: '¡Atención! Las plagas de insectos pueden causar daños graves a tus cultivos, disminuyendo su producción y calidad. Asegúrate de implementar medidas de control de plagas para un crecimiento óptimo de tus cultivos.',
+      image: insecto,
       className: 'diagnostic-class dehydration-class',
       classNameTitle: 'diagnostic-subtitle problema-subtitle',
     },
@@ -87,6 +111,12 @@ export default function Diagnostico({ problema }) {
       setdiagnostico('EXCELENT');
     }else if (problema === 'problem') {
       setdiagnostico('PROBLEMA');
+    }else if (problema === 'fal_nut') {
+      setdiagnostico('NUTRIENTE');
+    }else if (problema === 'maleza') {
+      setdiagnostico('MALEZA');
+    }else if (problema === 'insectos') {
+      setdiagnostico('INSECTOS');
     }
   }, [problema]);
 
