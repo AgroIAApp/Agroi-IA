@@ -16,7 +16,7 @@ import AgroMap from '../map/agroMap';
 import { CROP_TYPES_KEYS } from '../../../constants/plots';
 // eslint-disable-next-line import/no-named-as-default
 import cropCheckFullField from '../map/funcionesMapa';
-import { patch, post } from '../../conexionBack/conexionBack';
+import { post } from '../../conexionBack/conexionBack';
 import { CROP_TYPES_TRANSLATIONS } from '../../../constants/translations';
 import ErrorModal from '../errorFolder/errores';
 
@@ -24,7 +24,7 @@ export default function MapContainer({
   campInfo, cultivosSeleccionados, feats, edit,
 }) {
   const { userID } = useParams();
-  const { fieldID } = useParams();
+  const { field } = useParams();
   const nav = useNavigate();
 
   const fileTypes = ['JPG', 'PNG'];
@@ -228,24 +228,24 @@ export default function MapContainer({
     }
   }
 
-  function editData(endPoint, formData) {
-    const accessToken = `Bearer ${userID}`;
-    try {
-      patch(endPoint, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: accessToken,
-        },
-      });
-      nav(`/home/${userID}`);
-    } catch (error) {
-      setErrorMessage({
-        title: 'Error de conexión',
-        message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
-      });
-      setinValid(true);
-    }
-  }
+  // function editData(endPoint, formData) {
+  //   const accessToken = `Bearer ${userID}`;
+  //   try {
+  //     patch(endPoint, formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //         Authorization: accessToken,
+  //       },
+  //     });
+  //     nav(`/home/${userID}`);
+  //   } catch (error) {
+  //     setErrorMessage({
+  //       title: 'Error de conexión',
+  //       message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
+  //     });
+  //     setinValid(true);
+  //   }
+  // }
 
   async function guardarCampoInfo() {
     const valid = validateForm();
@@ -265,7 +265,7 @@ export default function MapContainer({
     // let send = false;
     if (edit) {
       // guardar campo editado
-      editData(`field/${fieldID}`, formData);
+      // editData(`field/${fieldID}`, formData);
     } else {
       // send = await sendData('field', formData);
       await sendData('field', formData);
@@ -319,6 +319,7 @@ export default function MapContainer({
                     type="text"
                     className="agregar-campo-input"
                     accept=""
+                    disabled={edit}
                   />
 
                 </label>
@@ -347,6 +348,7 @@ export default function MapContainer({
                   label="Suba o arrastre una imagen de su campo aqui"
                   classes="drop_area"
                   hoverTitle="Suelte la foto aqui "
+                  disabled={edit}
                 >
                   {campoInfo.imagen ? (
                     <div>
@@ -355,6 +357,7 @@ export default function MapContainer({
 
                         {' '}
                       </div>
+                      {!edit && (
                       <Button
                         type="button"
                         className="button"
@@ -362,6 +365,7 @@ export default function MapContainer({
                       >
                         Cambiar Imagen
                       </Button>
+                      )}
                     </div>
                   )
                     : (
@@ -376,10 +380,17 @@ export default function MapContainer({
             </form>
           </Card>
 
+          {!edit && (
           <div className="botones">
             <Button type="button" variant="outline-primary" onClick={() => nav(`/home/${userID}`)}>Cancelar</Button>
             <Button type="button" variant="primary" onClick={() => guardarCampoInfo()}>Guardar</Button>
           </div>
+          )}
+          {edit && (
+          <div className="botones">
+            <Button type="button" variant="outline-primary" onClick={() => nav(`/${userID}/infoCampo/${field}`)}>Volver</Button>
+          </div>
+          )}
         </div>
       </div>
     </div>

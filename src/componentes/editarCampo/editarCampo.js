@@ -58,7 +58,9 @@ export default function EditarCampo() {
             {' '}
             <Icon className="bi bi-pencil-square" color="#464E47" fontSize="" />
             {' '}
-            EDITAR CAMPO
+            INFORMACION DEL CAMPO:
+            {' '}
+            {campo.name}
           </h1>
           <MapContainer
             campInfo={{

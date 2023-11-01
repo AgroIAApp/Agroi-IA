@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './input_box.scss';
 
 export default function Input({
-  value, placeholder, onChange, type, className, accept,
+  value, placeholder, onChange, type, className, accept, disabled,
 }) {
   return (
     <input
@@ -13,6 +13,7 @@ export default function Input({
       onChange={(e) => onChange(e.target.value)}
       type={type}
       accept={accept}
+      disabled={disabled}
     />
   );
 }
@@ -24,4 +25,5 @@ Input.propTypes = {
   type: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   accept: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
