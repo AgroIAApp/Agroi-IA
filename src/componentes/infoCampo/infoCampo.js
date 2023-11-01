@@ -367,6 +367,7 @@ export default function InfoCampo() {
       const diasArestar = 365;
       fechaAUsar.setDate(fechaActual.getDate() - diasArestar);
     } else if (selectedTimePeriod === 'FullHistory') {
+      fechaAUsar.setDate(fechaActual.getDate());
       fullHistory = true;
     }
     if (user2 && user2.fields) {
@@ -405,7 +406,7 @@ export default function InfoCampo() {
           setporcentajeSanoviejo(Math.round(((porcentajeSano - porcentajeSanoRedondeado) / Math.abs(porcentajeSanoRedondeado)) * 100));
           setNdviviejo(Math.round(((ndvi - ndviTemp) / Math.abs(ndviTemp)) * 100));
           setHumedadviejo(Math.round(((humedad - humedadTemp) / Math.abs(humedadTemp)) * 100));
-          setMetrosCuadradosviejo(Math.round(((humedad - metros) / Math.abs(metros)) * 100));
+          setMetrosCuadradosviejo(Math.round(((metrosCuadrados - metros) / Math.abs(metros)) * 100));
           return;
         }
       });
@@ -698,6 +699,7 @@ export default function InfoCampo() {
                 {(ndvi < 0 || ndvi >= 0) && ndvi !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle3">
                     {ndvi}
+                    <span>prom</span>
                   </div>
                 ) : (
                   <div className="cards-Subtitle-no-data cards-Subtitle3">
@@ -717,11 +719,12 @@ export default function InfoCampo() {
               <Card className="cards-wrapper">
                 <div className="circle-card fourth" />
                 <div className="cards-titles">
-                  Humedad
+                  NDMI
                 </div>
                 {(humedad < 0 || humedad >= 0) && humedad !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle4">
                     {humedad}
+                    <span>prom</span>
                   </div>
                 ) : (
                   <div className="cards-Subtitle-no-data cards-Subtitle4">
