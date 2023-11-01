@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 import './campoInfoCard.scss';
 import React, { useState, useEffect } from 'react';
@@ -8,12 +9,32 @@ import { fetchImage } from '../../conexionBack/conexionBack';
 import Loader from '../loader/loader';
 
 export default function CampoInfoCard({
-  index, imageId, fieldId, crops, dateUpdated,
+  index, imageId, fieldId, crops, dateUpdated, plots,
 }) {
   const { userID } = useParams();
   const nav = useNavigate();
   const [imageUrl, setImageUrl] = useState('');
   const date = new Date(dateUpdated);
+  const problems = ['overhydration', 'problem', 'frosting', 'dehydration', 'fal_nut', 'maleza', 'insectos'];
+
+  const diagnosticKeys = {
+    excelent: 'Excelente',
+    very_good: 'Muy bueno',
+    good: 'Bueno',
+    frosting: 'Congelamiento',
+    overhydration: 'Sobrehidratación',
+    dehydration: 'Deshidratación',
+    problem: 'Problema',
+    fal_nut: 'Faltan de nutrientes',
+    maleza: 'Maleza',
+    insectos: 'Plaga de insectos',
+  };
+  console.log(plots);
+  const problemPlot = plots.find((plot) => plot.crop !== 'none' && problems.includes(plot.history[plot.history.length - 1].diagnostics));
+  let problem = 'Sano';
+  if (problemPlot) {
+    problem = diagnosticKeys[problemPlot.history[problemPlot.history.length - 1].diagnostics];
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,8 +74,7 @@ export default function CampoInfoCard({
                   <h6 className="underline">
                     Estado:
                   </h6>
-                  {' '}
-                  Sano
+                  {problem}
                 </div>
               </li>
             </ul>
@@ -74,4 +94,5 @@ CampoInfoCard.propTypes = {
   index: PropTypes.number.isRequired,
   crops: PropTypes.arrayOf(PropTypes.string).isRequired,
   dateUpdated: PropTypes.string.isRequired,
+  plots: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
