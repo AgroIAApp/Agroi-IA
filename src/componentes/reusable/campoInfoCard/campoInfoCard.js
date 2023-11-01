@@ -8,11 +8,12 @@ import { fetchImage } from '../../conexionBack/conexionBack';
 import Loader from '../loader/loader';
 
 export default function CampoInfoCard({
-  index, imageId, fieldId, crops,
+  index, imageId, fieldId, crops, dateUpdated,
 }) {
   const { userID } = useParams();
   const nav = useNavigate();
   const [imageUrl, setImageUrl] = useState('');
+  const date = new Date(dateUpdated);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +60,7 @@ export default function CampoInfoCard({
             </ul>
           </Card.Body>
           <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted">{`Ultima actualización: ${date.toISOString().split('T')[0]}`}</small>
           </Card.Footer>
         </Card>
       </div>
@@ -72,4 +73,5 @@ CampoInfoCard.propTypes = {
   fieldId: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   crops: PropTypes.arrayOf(PropTypes.string).isRequired,
+  dateUpdated: PropTypes.string.isRequired,
 };
