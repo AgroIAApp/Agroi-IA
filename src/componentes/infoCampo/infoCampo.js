@@ -346,6 +346,7 @@ export default function InfoCampo() {
   };
 
   const metricsForMenu = () => {
+    console.log(user2);
     let metros = 0;
     let sano = 0;
     const cultivo = traducciones[crop].cultivo;
@@ -367,6 +368,7 @@ export default function InfoCampo() {
       const diasArestar = 365;
       fechaAUsar.setDate(fechaActual.getDate() - diasArestar);
     } else if (selectedTimePeriod === 'FullHistory') {
+      fechaAUsar.setDate(fechaActual.getDate());
       fullHistory = true;
     }
     if (user2 && user2.fields) {
@@ -377,11 +379,12 @@ export default function InfoCampo() {
               diferenciaMenor = Number.MAX_VALUE;
               huboAlguno = false;
               let indexAusar = 0;
+              let histLen = plot.history.length;
               plot.history.forEach((instance, index2) => {
                 if (index2 !== 0) {
                   const fechaInstancia = new Date(instance.createdAt);
                   const diferenciaNueva = differenceInDays(fechaActual, fechaInstancia);
-                  if (diferenciaNueva <= diferenciaMenor && fechaInstancia <= fechaAUsar) {
+                  if (diferenciaNueva <= diferenciaMenor && fechaInstancia <= fechaAUsar && histLen - 1 > index2) {
                     diferenciaMenor = diferenciaNueva;
                     indexAusar = index2;
                     huboAlguno = true;
@@ -405,7 +408,7 @@ export default function InfoCampo() {
           setporcentajeSanoviejo(Math.round(((porcentajeSano - porcentajeSanoRedondeado) / Math.abs(porcentajeSanoRedondeado)) * 100));
           setNdviviejo(Math.round(((ndvi - ndviTemp) / Math.abs(ndviTemp)) * 100));
           setHumedadviejo(Math.round(((humedad - humedadTemp) / Math.abs(humedadTemp)) * 100));
-          setMetrosCuadradosviejo(Math.round(((humedad - metros) / Math.abs(metros)) * 100));
+          setMetrosCuadradosviejo(Math.round(((metrosCuadrados - metros) / Math.abs(metros)) * 100));
           return;
         }
       });
