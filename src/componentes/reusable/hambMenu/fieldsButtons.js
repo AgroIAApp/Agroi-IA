@@ -14,7 +14,7 @@ export default function FieldsButtons({ fields }) {
         <div
           className="menu-drop-down"
           onClick={() => {
-            nav(`/editarCampo/${userID}/${field._id}`);
+            nav(`/campo/${userID}/${field._id}`);
             window.location.reload();
           }}
         >

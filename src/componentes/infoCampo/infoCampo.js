@@ -793,7 +793,7 @@ export default function InfoCampo() {
                       </div>
                     ))}
                   </div>
-                  <Button variant="primary" onClick={() => nav(`/editarCampo/${userID}/${field}`)}>Editar Campo</Button>
+                  <Button variant="primary" onClick={() => nav(`/campo/${userID}/${field}`)}>Mas Info</Button>
                 </Card.Body>
               </Card>
             </div>
