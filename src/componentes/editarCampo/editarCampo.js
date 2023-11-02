@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -7,6 +8,7 @@ import Icon from '../../assets/icons/icon';
 import { fetchImage, get } from '../conexionBack/conexionBack';
 import { createPolygonFromPlots } from '../reusable/map/funcionesMapa';
 import Loader from '../reusable/loader/loader';
+import ErrorModal from '../reusable/errorFolder/errores';
 
 export default function EditarCampo() {
   const { field } = useParams();
@@ -16,6 +18,8 @@ export default function EditarCampo() {
   const [isLoading, setLoading] = useState(true);
   const [campo, setCampo] = useState(null);
   const [campoFeatures, setCampoFeatures] = useState(null);
+  const [invalid, setinValid] = useState(false);
+  const [errorMsg, setErrorMessage] = useState({ title: '', message: '' });
 
   const fetchData = async () => {
     const image = await fetchImage(field);
@@ -23,13 +27,22 @@ export default function EditarCampo() {
   };
 
   const getField = async () => {
-    const accessToken = `Bearer ${userID}`;
-    const response = await get(`field/${field}`, {
-      headers: {
-        Authorization: accessToken,
-      },
-    });
-    setCampo(response);
+    try {
+      const accessToken = `Bearer ${userID}`;
+      const response = await get(`field/${field}`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      setCampo(response);
+    } catch (error) {
+      console.error('Error:', error);
+      setErrorMessage({
+        title: 'Error de conexión',
+        message: `Ocurrió un error en la conexión con el servidor. Detalles del error: ${error.message}`,
+      });
+      setinValid(true);
+    }
   };
 
   useEffect(() => {
@@ -45,9 +58,14 @@ export default function EditarCampo() {
     }
   }, [campo, imageUrl]);
 
+  const okay = () => {
+    location.reload();
+  };
+
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Header />
+      {invalid && <ErrorModal title={errorMsg.title} message={errorMsg.message} onClick={okay} />}
       {isLoading ? ( // Show loader while loading data
         <div className="loader-container">
           <Loader />
