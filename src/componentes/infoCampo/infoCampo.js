@@ -38,6 +38,7 @@ import { CROP_TYPES_KEYS } from '../../constants/plots';
 import { CROP_TYPES_TRANSLATIONS } from '../../constants/translations';
 import IndicatorContext from './indicatorContext';
 import { COLOR_RANGES } from '../../constants/ndviColors';
+import ToolTip from '../reusable/toolTip/toolTip';
 
 export default function InfoCampo() {
   const [problema, setProblema] = useState('');
@@ -753,36 +754,45 @@ export default function InfoCampo() {
                   <Card.Title className="card-title-no-campo">ÍNDICES</Card.Title>
                   <Form>
                     <div key="inline-radio" className="mb-1 d-flex indices">
-                      <Form.Check
-                        inline
-                        label="NDVI"
-                        name="group1"
-                        type="radio"
-                        id="inline-radio-1"
-                        value="ndvi"
-                        onChange={handleRadioChange}
-                        checked={indicator === 'ndvi'}
-                      />
-                      <Form.Check
-                        inline
-                        label="NDSI"
-                        name="group1"
-                        type="radio"
-                        id="inline-radio-2"
-                        value="ndsi"
-                        onChange={handleRadioChange}
-                        checked={indicator === 'ndsi'}
-                      />
-                      <Form.Check
-                        inline
-                        label="NDMI"
-                        name="group1"
-                        type="radio"
-                        id="inline-radio-3"
-                        value="ndmi"
-                        onChange={handleRadioChange}
-                        checked={indicator === 'ndmi'}
-                      />
+                      <div>
+                        <Form.Check
+                          inline
+                          label="NDVI"
+                          name="group1"
+                          type="radio"
+                          id="inline-radio-1"
+                          value="ndvi"
+                          onChange={handleRadioChange}
+                          checked={indicator === 'ndvi'}
+                        />
+                        <ToolTip toolText="Hola como estas?" />
+                      </div>
+                      <div>
+                        <Form.Check
+                          inline
+                          label="NDSI"
+                          name="group1"
+                          type="radio"
+                          id="inline-radio-2"
+                          value="ndsi"
+                          onChange={handleRadioChange}
+                          checked={indicator === 'ndsi'}
+                        />
+                        <ToolTip toolText="Hola como estas?" />
+                      </div>
+                      <div>
+                        <Form.Check
+                          inline
+                          label="NDMI"
+                          name="group1"
+                          type="radio"
+                          id="inline-radio-3"
+                          value="ndmi"
+                          onChange={handleRadioChange}
+                          checked={indicator === 'ndmi'}
+                        />
+                        <ToolTip toolText="Mal" />
+                      </div>
                     </div>
                   </Form>
                   <div className="mb-1 indicator-ranges">
