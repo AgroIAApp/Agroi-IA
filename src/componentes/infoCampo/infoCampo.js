@@ -702,6 +702,7 @@ export default function InfoCampo() {
                 {(ndvi < 0 || ndvi >= 0) && ndvi !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle3">
                     {ndvi}
+                    <span>prom</span>
                   </div>
                 ) : (
                   <div className="cards-Subtitle-no-data cards-Subtitle3">
@@ -721,11 +722,12 @@ export default function InfoCampo() {
               <Card className="cards-wrapper">
                 <div className="circle-card fourth" />
                 <div className="cards-titles">
-                  Humedad
+                  NDMI
                 </div>
                 {(humedad < 0 || humedad >= 0) && humedad !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle4">
                     {humedad}
+                    <span>prom</span>
                   </div>
                 ) : (
                   <div className="cards-Subtitle-no-data cards-Subtitle4">
