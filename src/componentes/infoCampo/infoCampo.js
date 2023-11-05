@@ -698,6 +698,8 @@ export default function InfoCampo() {
                 <div className="circle-card third" />
                 <div className="cards-titles">
                   NDVI
+                  {'  '}
+                  <ToolTip toolText="Índice De Vegetación De Diferencia Normalizada" />
                 </div>
                 {(ndvi < 0 || ndvi >= 0) && ndvi !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle3">
@@ -723,6 +725,8 @@ export default function InfoCampo() {
                 <div className="circle-card fourth" />
                 <div className="cards-titles">
                   NDMI
+                  {'  '}
+                  <ToolTip toolText="Índice De Humedad De Diferencia Normalizada" />
                 </div>
                 {(humedad < 0 || humedad >= 0) && humedad !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle4">
@@ -752,11 +756,11 @@ export default function InfoCampo() {
                 </IndicatorContext.Provider>
               </Card>
               <Card className="info-mapa derecha min-content">
-                <Card.Body className="d-flex flex-column justify-content-between">
+                <Card.Body className="d-flex flex-column justify-content-between indices-body">
                   <Card.Title className="card-title-no-campo">ÍNDICES</Card.Title>
                   <Form>
                     <div key="inline-radio" className="mb-1 d-flex indices">
-                      <div>
+                      <div className="indices-wrapper">
                         <Form.Check
                           inline
                           label="NDVI"
@@ -767,9 +771,9 @@ export default function InfoCampo() {
                           onChange={handleRadioChange}
                           checked={indicator === 'ndvi'}
                         />
-                        <ToolTip toolText="Hola como estas?" />
+                        <ToolTip toolText="Índice De Vegetación De Diferencia Normalizada" />
                       </div>
-                      <div>
+                      <div className="indices-wrapper">
                         <Form.Check
                           inline
                           label="NDSI"
@@ -780,9 +784,9 @@ export default function InfoCampo() {
                           onChange={handleRadioChange}
                           checked={indicator === 'ndsi'}
                         />
-                        <ToolTip toolText="Hola como estas?" />
+                        <ToolTip toolText="Índice Diferencial Normalizado De Nieve" />
                       </div>
-                      <div>
+                      <div className="indices-wrapper">
                         <Form.Check
                           inline
                           label="NDMI"
@@ -793,7 +797,7 @@ export default function InfoCampo() {
                           onChange={handleRadioChange}
                           checked={indicator === 'ndmi'}
                         />
-                        <ToolTip toolText="Mal" />
+                        <ToolTip toolText="Índice De Humedad De Diferencia Normalizada" />
                       </div>
                     </div>
                   </Form>

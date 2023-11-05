@@ -2,6 +2,7 @@
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import './toolTip.scss';
 
 export default function ToolTip({ toolText }) {
   const renderTooltip = (props) => (
@@ -13,10 +14,10 @@ export default function ToolTip({ toolText }) {
   return (
     <OverlayTrigger
       placement="right"
-      delay={{ show: 250, hide: 400 }}
+      delay={{ show: 10, hide: 10 }}
       overlay={renderTooltip}
     >
-      <i className="bi bi-info-circle" />
+      <i className="tool-tip bi bi-info-circle" />
     </OverlayTrigger>
   );
 }
