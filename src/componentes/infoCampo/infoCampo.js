@@ -38,6 +38,7 @@ import { CROP_TYPES_KEYS } from '../../constants/plots';
 import { CROP_TYPES_TRANSLATIONS } from '../../constants/translations';
 import IndicatorContext from './indicatorContext';
 import { COLOR_RANGES } from '../../constants/ndviColors';
+import ToolTip from '../reusable/toolTip/toolTip';
 
 export default function InfoCampo() {
   const [problema, setProblema] = useState('');
@@ -346,6 +347,7 @@ export default function InfoCampo() {
   };
 
   const metricsForMenu = () => {
+    console.log(user2);
     let metros = 0;
     let sano = 0;
     const cultivo = traducciones[crop].cultivo;
@@ -378,11 +380,12 @@ export default function InfoCampo() {
               diferenciaMenor = Number.MAX_VALUE;
               huboAlguno = false;
               let indexAusar = 0;
+              let histLen = plot.history.length;
               plot.history.forEach((instance, index2) => {
                 if (index2 !== 0) {
                   const fechaInstancia = new Date(instance.createdAt);
                   const diferenciaNueva = differenceInDays(fechaActual, fechaInstancia);
-                  if (diferenciaNueva <= diferenciaMenor && fechaInstancia <= fechaAUsar) {
+                  if (diferenciaNueva <= diferenciaMenor && fechaInstancia <= fechaAUsar && histLen - 1 > index2) {
                     diferenciaMenor = diferenciaNueva;
                     indexAusar = index2;
                     huboAlguno = true;
@@ -695,6 +698,8 @@ export default function InfoCampo() {
                 <div className="circle-card third" />
                 <div className="cards-titles">
                   NDVI
+                  {'  '}
+                  <ToolTip toolText="Índice De Vegetación De Diferencia Normalizada" />
                 </div>
                 {(ndvi < 0 || ndvi >= 0) && ndvi !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle3">
@@ -720,6 +725,8 @@ export default function InfoCampo() {
                 <div className="circle-card fourth" />
                 <div className="cards-titles">
                   NDMI
+                  {'  '}
+                  <ToolTip toolText="Índice De Humedad De Diferencia Normalizada" />
                 </div>
                 {(humedad < 0 || humedad >= 0) && humedad !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle4">
@@ -749,40 +756,49 @@ export default function InfoCampo() {
                 </IndicatorContext.Provider>
               </Card>
               <Card className="info-mapa derecha min-content">
-                <Card.Body className="d-flex flex-column justify-content-between">
+                <Card.Body className="d-flex flex-column justify-content-between indices-body">
                   <Card.Title className="card-title-no-campo">ÍNDICES</Card.Title>
                   <Form>
                     <div key="inline-radio" className="mb-1 d-flex indices">
-                      <Form.Check
-                        inline
-                        label="NDVI"
-                        name="group1"
-                        type="radio"
-                        id="inline-radio-1"
-                        value="ndvi"
-                        onChange={handleRadioChange}
-                        checked={indicator === 'ndvi'}
-                      />
-                      <Form.Check
-                        inline
-                        label="NDSI"
-                        name="group1"
-                        type="radio"
-                        id="inline-radio-2"
-                        value="ndsi"
-                        onChange={handleRadioChange}
-                        checked={indicator === 'ndsi'}
-                      />
-                      <Form.Check
-                        inline
-                        label="NDMI"
-                        name="group1"
-                        type="radio"
-                        id="inline-radio-3"
-                        value="ndmi"
-                        onChange={handleRadioChange}
-                        checked={indicator === 'ndmi'}
-                      />
+                      <div className="indices-wrapper">
+                        <Form.Check
+                          inline
+                          label="NDVI"
+                          name="group1"
+                          type="radio"
+                          id="inline-radio-1"
+                          value="ndvi"
+                          onChange={handleRadioChange}
+                          checked={indicator === 'ndvi'}
+                        />
+                        <ToolTip toolText="Índice De Vegetación De Diferencia Normalizada" />
+                      </div>
+                      <div className="indices-wrapper">
+                        <Form.Check
+                          inline
+                          label="NDSI"
+                          name="group1"
+                          type="radio"
+                          id="inline-radio-2"
+                          value="ndsi"
+                          onChange={handleRadioChange}
+                          checked={indicator === 'ndsi'}
+                        />
+                        <ToolTip toolText="Índice Diferencial Normalizado De Nieve" />
+                      </div>
+                      <div className="indices-wrapper">
+                        <Form.Check
+                          inline
+                          label="NDMI"
+                          name="group1"
+                          type="radio"
+                          id="inline-radio-3"
+                          value="ndmi"
+                          onChange={handleRadioChange}
+                          checked={indicator === 'ndmi'}
+                        />
+                        <ToolTip toolText="Índice De Humedad De Diferencia Normalizada" />
+                      </div>
                     </div>
                   </Form>
                   <div className="mb-1 indicator-ranges">
