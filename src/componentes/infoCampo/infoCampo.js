@@ -658,14 +658,14 @@ export default function InfoCampo() {
                     No hay datos
                   </div>
                 )}
-                {(metrosCuadradosViejo < 0 || metrosCuadradosViejo >= 0) && metrosCuadradosViejo !== Infinity ? (
+                {(metrosCuadradosViejo < 0 || metrosCuadradosViejo > 0) && metrosCuadradosViejo !== Infinity ? (
                   <div className={metrosCuadradosViejo < 0 ? 'cards-Subtitle-old-origin red' : 'cards-Subtitle-old-origin green'}>
                     {metrosCuadradosViejo}
                     %
                   </div>
                 ) : null}
 
-                {(metrosCuadradosViejo < 0 || metrosCuadradosViejo >= 0) && metrosCuadradosViejo !== Infinity ? (
+                {(metrosCuadradosViejo < 0 || metrosCuadradosViejo > 0) && metrosCuadradosViejo !== Infinity ? (
                   <img src={metrosCuadradosViejo < 0 ? downLine : upLine} alt="Line Image" className="upLineImage upLineImageMetros" />
                 ) : null}
               </Card>
@@ -684,13 +684,13 @@ export default function InfoCampo() {
                     No hay datos
                   </div>
                 )}
-                {(porcentajeSanoviejo < 0 || porcentajeSanoviejo >= 0) && porcentajeSanoviejo !== Infinity ? (
+                {(porcentajeSanoviejo < 0 || porcentajeSanoviejo > 0) && porcentajeSanoviejo !== Infinity ? (
                   <div className={porcentajeSanoviejo < 0 ? 'cards-Subtitle-old-origin red' : 'cards-Subtitle-old-origin green'}>
                     {porcentajeSanoviejo}
                     %
                   </div>
                 ) : null}
-                {(porcentajeSanoviejo < 0 || porcentajeSanoviejo >= 0) && porcentajeSanoviejo !== Infinity ? (
+                {(porcentajeSanoviejo < 0 || porcentajeSanoviejo > 0) && porcentajeSanoviejo !== Infinity ? (
                   <img src={porcentajeSanoviejo < 0 ? downLine : upLine} alt="Line Image" className="upLineImage upLineImageSano" />
                 ) : null}
               </Card>
@@ -711,13 +711,13 @@ export default function InfoCampo() {
                     No hay datos
                   </div>
                 )}
-                {(ndviviejo < 0 || ndviviejo >= 0) && ndviviejo !== Infinity ? (
+                {(ndviviejo < 0 || ndviviejo > 0) && ndviviejo !== Infinity ? (
                   <div className={ndviviejo < 0 ? 'cards-Subtitle-old-origin red' : 'cards-Subtitle-old-origin green'}>
                     {ndviviejo}
                     %
                   </div>
                 ) : null}
-                {(ndviviejo < 0 || ndviviejo >= 0) && ndviviejo !== Infinity ? (
+                {(ndviviejo < 0 || ndviviejo > 0) && ndviviejo !== Infinity ? (
                   <img src={ndviviejo < 0 ? downLine : upLine} alt="Line Image" className="upLineImage upLineImagendvi" />
                 ) : null}
               </Card>
@@ -738,13 +738,13 @@ export default function InfoCampo() {
                     No hay datos
                   </div>
                 )}
-                {(humedadviejo < 0 || humedadviejo >= 0) && humedadviejo !== Infinity ? (
+                {(humedadviejo < 0 || humedadviejo > 0) && humedadviejo !== Infinity ? (
                   <div className={humedadviejo < 0 ? 'cards-Subtitle-old-origin red' : 'cards-Subtitle-old-origin green'}>
                     {humedadviejo}
                     %
                   </div>
                 ) : null}
-                {(humedadviejo < 0 || humedadviejo >= 0) && humedadviejo !== Infinity ? (
+                {(humedadviejo < 0 || humedadviejo > 0) && humedadviejo !== Infinity ? (
                   <img src={humedadviejo < 0 ? downLine : upLine} alt="Line Image" className="upLineImage" />
                 ) : null}
               </Card>
