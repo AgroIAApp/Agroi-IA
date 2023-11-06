@@ -383,7 +383,7 @@ export default function InfoCampo() {
               let histLen = plot.history.length;
               plot.history.forEach((instance, index2) => {
                 if (index2 !== 0) {
-                  const fechaInstancia = new Date(instance.createdAt);
+                  const fechaInstancia = new Date(instance.fecha);
                   const diferenciaNueva = differenceInDays(fechaActual, fechaInstancia);
                   if (diferenciaNueva <= diferenciaMenor && fechaInstancia <= fechaAUsar && histLen - 1 > index2) {
                     diferenciaMenor = diferenciaNueva;
@@ -445,7 +445,7 @@ export default function InfoCampo() {
               let indexAusar = 0;
               plot.history.forEach((instance, index2) => {
                 if (index2 !== 0) {
-                  const fechaInstancia = new Date(instance.createdAt);
+                  const fechaInstancia = new Date(instance.fecha);
                   const diferenciaNueva = differenceInDays(fechaActual, fechaInstancia);
                   if (diferenciaNueva <= diferenciaMenor) {
                     diferenciaMenor = diferenciaNueva;
