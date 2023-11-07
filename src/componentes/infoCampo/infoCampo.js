@@ -676,7 +676,7 @@ export default function InfoCampo() {
                 </div>
                 {(porcentajeSanoviejo < 0 || porcentajeSanoviejo > 0) && porcentajeSanoviejo !== Infinity ? (
                   <div className="tooltip-history">
-                    <ToolTip toolText={`La cantidad de cultivo sano era: ${Math.floor(porcentajeSano / (1 + porcentajeSanoviejo / 100))} m2`} info={false} />
+                    <ToolTip toolText={`La cantidad de cultivo sano era de: ${Math.floor(porcentajeSano / (1 + porcentajeSanoviejo / 100))} m2`} info={false} />
                   </div>
                 ) : <div />}
                 {(porcentajeSano < 0 || porcentajeSano >= 0) && porcentajeSano !== Infinity ? (
