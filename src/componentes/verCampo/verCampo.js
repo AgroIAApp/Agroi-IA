@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
@@ -27,16 +28,51 @@ export default function VerCampo({ crop }) {
     });
     setCampo(response);
   };
+  const indicatorContextVariable = useContext(IndicatorContext);
+  const selectedIndicator = indicatorContextVariable.indicator;
+  const { selectedTimePeriod } = indicatorContextVariable;
+
+  function findNearestDateIndex(dates) {
+    let startDate;
+    let endDate;
+
+    const today = new Date();
+
+    if (selectedTimePeriod === 'LastWeek') {
+      startDate = new Date(today);
+      startDate.setDate(today.getDate() - 7);
+      endDate = today;
+    } else if (selectedTimePeriod === 'LastMonth') {
+      startDate = new Date(today);
+      startDate.setMonth(today.getMonth() - 1);
+      endDate = today;
+    } else if (selectedTimePeriod === 'LastYear') {
+      startDate = new Date(today);
+      startDate.setFullYear(today.getFullYear() - 1);
+      endDate = today;
+    } else {
+      startDate = new Date(Math.max(...dates));
+      endDate = today;
+    }
+
+    const dateDifferences = dates.map((date) => Math.abs(date - startDate));
+
+    // Find the index of the date with the smallest difference
+    const nearestDateIndex = dateDifferences.indexOf(Math.min(...dateDifferences));
+
+    return nearestDateIndex;
+  }
 
   useEffect(() => {
     getField();
   }, [field]);
-  const selectedIndicator = useContext(IndicatorContext);
+
   useEffect(() => {
     // Update campo variable when userData changes
     setIsLoading(true);
-    if (campo && selectedIndicator) {
-      setCampoFeatures(createHeatmap(campo, selectedIndicator.indicator));
+    if (campo && selectedIndicator && selectedTimePeriod) {
+      const index = findNearestDateIndex(campo.plots[0].history.map((hist) => new Date(hist.fecha)));
+      setCampoFeatures(createHeatmap(campo, selectedIndicator, index));
     }
   }, [campo]);
 

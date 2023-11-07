@@ -140,15 +140,15 @@ export const createGridFromPlots = (field) => {
   return { type: 'FeatureCollection', features: plotsFeatures };
 };
 
-export const addColor = (feat, indicator) => ({
+export const addColor = (feat, indicator, histIndex) => ({
   ...feat,
   properties: {
     plotInfo: feat.properties.plotInfo,
-    fillColor: getPlotColor(JSON.parse(feat.properties.plotInfo), indicator),
+    fillColor: getPlotColor(JSON.parse(feat.properties.plotInfo)[histIndex], indicator),
     // fillColor: getNDVIColor(JSON.parse(feat.properties.plotInfo)),
   },
 });
-export const createPolygonFromPlots = (field, heatmap, indicator) => {
+export const createPolygonFromPlots = (field, heatmap, indicator, histIndex) => {
   const {
     plots, height, width, coordinates,
   } = field;
@@ -164,7 +164,7 @@ export const createPolygonFromPlots = (field, heatmap, indicator) => {
         type: 'Feature',
         properties: {
           portColor: color,
-          plotInfo: JSON.stringify(plot.history[plot.history.length - 1]),
+          plotInfo: JSON.stringify(plot.history),
         },
         geometry: {
           type: 'Polygon',
@@ -208,7 +208,7 @@ export const createPolygonFromPlots = (field, heatmap, indicator) => {
       });
     } else {
       const poly = {};
-      const coloredFeatures = coordinatesForCrop.map((feat) => addColor(feat.polygon, indicator));
+      const coloredFeatures = coordinatesForCrop.map((feat) => addColor(feat.polygon, indicator, histIndex));
       features.push({
         polygon: {
           id: contador.toString(),
@@ -224,7 +224,7 @@ export const createPolygonFromPlots = (field, heatmap, indicator) => {
   return features;
 };
 
-export const createHeatmap = (field, indicator) => createPolygonFromPlots(field, true, indicator);
+export const createHeatmap = (field, indicator, index) => createPolygonFromPlots(field, true, indicator, index);
 
 const cropCheck = (coordinates, cropPolygons) => {
   // console.log(cropPolygons);

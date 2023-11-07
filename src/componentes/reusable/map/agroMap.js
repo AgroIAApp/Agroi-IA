@@ -34,6 +34,37 @@ function splitPolygon(draw, polygon) {
   }
 }
 
+function findNearestDateIndex(dates, selectedTimePeriod) {
+  let startDate;
+  let endDate;
+
+  const today = new Date();
+
+  if (selectedTimePeriod === 'LastWeek') {
+    startDate = new Date(today);
+    startDate.setDate(today.getDate() - 7);
+    endDate = today;
+  } else if (selectedTimePeriod === 'LastMonth') {
+    startDate = new Date(today);
+    startDate.setMonth(today.getMonth() - 1);
+    endDate = today;
+  } else if (selectedTimePeriod === 'LastYear') {
+    startDate = new Date(today);
+    startDate.setFullYear(today.getFullYear() - 1);
+    endDate = today;
+  } else {
+    startDate = new Date(Math.max(...dates));
+    endDate = today;
+  }
+
+  const dateDifferences = dates.map((date) => Math.abs(date - startDate));
+
+  // Find the index of the date with the smallest difference
+  const nearestDateIndex = dateDifferences.indexOf(Math.min(...dateDifferences));
+
+  return nearestDateIndex;
+}
+
 function AgroMap({
   coordinates, changeCoordinates, addFeatures, removeFeature, feats, featErased, edit, view,
 }) {
@@ -296,7 +327,8 @@ function AgroMap({
     if (edit && drawRef.current && feats.length > 0) {
       const allFeatures = drawRef.current.getAll().features;
       allFeatures.forEach((feature) => {
-        const newColor = addColor(feature, selectedIndicator.indicator).properties.fillColor;
+        const index = findNearestDateIndex(JSON.parse(feature.properties.plotInfo).map((hist) => new Date(hist.fecha)), selectedIndicator.selectedTimePeriod);
+        const newColor = addColor(feature, selectedIndicator.indicator, index).properties.fillColor;
         drawRef.current.setFeatureProperty(feature.id, 'fillColor', newColor);
       });
     }
