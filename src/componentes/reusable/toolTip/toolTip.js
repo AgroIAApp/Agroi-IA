@@ -13,7 +13,7 @@ export default function ToolTip({ toolText, info }) {
 
   return (
     <OverlayTrigger
-      placement="right"
+      placement="top"
       delay={{ show: 10, hide: 10 }}
       overlay={renderTooltip}
     >
