@@ -4,7 +4,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import './toolTip.scss';
 
-export default function ToolTip({ toolText }) {
+export default function ToolTip({ toolText, info }) {
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {toolText}
@@ -17,11 +17,12 @@ export default function ToolTip({ toolText }) {
       delay={{ show: 10, hide: 10 }}
       overlay={renderTooltip}
     >
-      <i className="tool-tip bi bi-info-circle" />
+      {info ? <i className="tool-tip bi bi-info-circle" /> : <i className="tool-tipbi bi-clock-history" />}
     </OverlayTrigger>
   );
 }
 
 ToolTip.propTypes = {
   toolText: PropTypes.string.isRequired,
+  info: PropTypes.bool.isRequired,
 };

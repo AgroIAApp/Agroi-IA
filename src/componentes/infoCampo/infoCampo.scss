@@ -1,11 +1,11 @@
 @import "../../assets/global.scss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 
 .titulo-fachero-facherito {
   width: 100%;
   //margin: 1rem 0% 0% 0%;
   justify-content: center !important;
-  font-family: 'Inter', sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-size: 2.5rem !important;
   font-weight: normal !important;
   color: $gris-titulo !important;
@@ -15,37 +15,37 @@
   display: inline-flex !important;
   text-align: center;
 }
-.indicator-ranges{
-    border: 1px solid black !important;
+.indicator-ranges {
+  border: 1px solid black !important;
 }
 
-.rango-color{
+.rango-color {
   border: 1px solid black !important;
   width: 2rem;
   height: 1rem;
   margin: 0.2rem;
 }
 
-.range-container{
+.range-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
 }
-.rango-interval{
+.rango-interval {
   margin-left: 0.2rem;
   margin-bottom: 0 !important;
 }
 
-h6{
+h6 {
   margin-bottom: 0 !important;
   margin-right: 1rem;
   color: $gris-titulo;
 }
 
 .rounded-dropdown {
-  border-radius: 0.3rem; 
+  border-radius: 0.3rem;
   padding: 0.2rem 1rem;
   background-color: $verde-clarito !important ;
   border: 1px solid $light-gray-dropdown;
@@ -62,9 +62,9 @@ h6{
   right: -26rem;
 }
 .full-width {
-    width: 100%;
+  width: 100%;
 }
-.drop-but-container{
+.drop-but-container {
   position: relative;
   padding: 0;
   display: flex;
@@ -95,10 +95,10 @@ h6{
   background: none;
   border: none;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem; 
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
   margin-right: 10px;
-  color: black; 
+  color: black;
 }
 
 .button-dashboard:last-child {
@@ -116,11 +116,11 @@ h6{
 }
 
 .white-column {
-  background-color: white; 
-  width: 20%; 
-  height: 100%; 
+  background-color: white;
+  width: 20%;
+  height: 100%;
   position: fixed;
-  left: 0; 
+  left: 0;
 }
 
 .gray-space {
@@ -130,7 +130,7 @@ h6{
   min-width: 80rem;
   height: 100vh;
   min-height: 122rem;
-  position: relative; 
+  position: relative;
 }
 
 .cards-container {
@@ -144,8 +144,8 @@ h6{
 .cards-container2 {
   display: flex;
   justify-content: center;
-  width: 80rem; 
-  margin: 0rem auto; 
+  width: 80rem;
+  margin: 0rem auto;
   min-width: 80rem;
 }
 .cards-wrapper {
@@ -173,17 +173,16 @@ h6{
   margin-right: 1rem !important;
 }
 
-.diagnostico-wrapper{
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+.diagnostico-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-
 .cards-titles {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   margin-top: -4rem;
   margin-left: 3.5rem;
   font-size: 1rem;
@@ -192,68 +191,67 @@ h6{
 }
 
 .cards-Subtitle {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 2.5rem;
   font-weight: bold;
   color: black;
   margin-left: -9.5rem;
-  margin-top: 3rem; 
+  margin-top: 3rem;
 }
 
 .cards-Subtitle-no-data {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 2rem;
   font-weight: bold;
   color: black;
   margin-left: -9.5rem;
-  margin-top: 3rem; 
+  margin-top: 3rem;
 }
 
-
 .cards-Subtitle2 {
-  margin-left: -8rem; 
+  margin-left: -8rem;
 }
 
 .cards-Subtitle3 {
-  margin-left: -5.7rem; 
+  margin-left: -5.7rem;
 }
 
 .cards-Subtitle4 {
-  margin-left: -5.7rem; 
+  margin-left: -5.7rem;
 }
 
 .cards-Subtitle-old-origin {
-  position:absolute;
-  font-family: 'Inter', sans-serif;
+  position: absolute;
+  font-family: "Inter", sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
   color: black;
-  margin-top: 0rem; 
+  margin-top: 0rem;
   margin-left: 14.3rem;
 }
 
 .upLineImage {
   position: absolute;
-  width: 3rem; 
-  height: 3rem; 
-  margin-left: 10.7rem; 
+  width: 3rem;
+  height: 3rem;
+  margin-left: 10.7rem;
 }
 
-.upLineImageMetros { 
-  margin-left: 11.5rem; 
+.upLineImageMetros {
+  margin-left: 11.5rem;
 }
 
 .upLineImagendvi {
-  margin-left: 10.7rem; 
+  margin-left: 10.7rem;
 }
 
 .upLineImageSano {
-  margin-left: 10.7rem; 
+  margin-left: 10.7rem;
 }
 
 .cards-Subtitle span {
-  font-size: 1rem; 
-  font-weight: normal; 
+  font-size: 1rem;
+  font-weight: normal;
 }
 
 .red {
@@ -271,43 +269,49 @@ h6{
   width: 1.8rem;
   height: 1.8rem;
   border-radius: 50%;
-  left: -2rem; 
+  left: -2rem;
   top: 55%;
   transform: translateY(-50%);
-  background-size: cover; 
-  background-repeat: no-repeat; 
-  background-position: center; 
-} 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tooltip-history {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
 
 .first {
   background-color: $color-circulo-verde;
-  background-image: url('../../images/plantacion.png'); 
-} 
+  background-image: url("../../images/plantacion.png");
+}
 
 .second {
   background-color: $red-image;
-  background-image: url('../../images/hospital.png'); 
-} 
+  background-image: url("../../images/hospital.png");
+}
 
 .third {
-  background-color: #B5C5FD;
-  background-image: url('../../images/velocimetro.png'); 
-} 
+  background-color: #b5c5fd;
+  background-image: url("../../images/velocimetro.png");
+}
 
 .fourth {
-  background-color: #FFF6A9;
-  background-image: url('../../images/gota-de-agua.png'); 
-} 
+  background-color: #fff6a9;
+  background-image: url("../../images/gota-de-agua.png");
+}
 
 .file-upload-container {
   position: relative;
-  //left: -26rem; 
+  //left: -26rem;
   //margin: 0rem 10rem;
   display: flex;
   justify-content: start;
 }
 
-.first-dashboard-aligned{
+.first-dashboard-aligned {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -333,7 +337,7 @@ h6{
   width: 100%;
   margin: 1rem 0% 0% 0%;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 1.1rem;
   font-weight: normal;
   color: black;
@@ -342,7 +346,7 @@ h6{
 .product-card {
   align-items: center;
   position: relative;
-  min-width: 5rem; 
+  min-width: 5rem;
   flex: 1 1 auto;
   height: 15rem;
   border-radius: 0.5rem;
@@ -350,26 +354,26 @@ h6{
   margin: 1%;
 }
 
-  .product-image {
-    margin-top: 0.7rem; 
-    height: 9rem !important;
-  }
+.product-image {
+  margin-top: 0.7rem;
+  height: 9rem !important;
+}
 
-  .product-card .product-price {
-  font-weight: bold; 
+.product-card .product-price {
+  font-weight: bold;
 }
 
 .cards-subtitle {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   margin-top: rem;
-   margin-left: -6.7rem;
+  margin-left: -6.7rem;
   font-size: 0.9rem;
   text-align: left;
   color: black;
 }
 
-.diagnostic-class{
-  font-family: 'Inter', sans-serif;
+.diagnostic-class {
+  font-family: "Inter", sans-serif;
   margin-right: 1.5rem;
   font-size: 0.9rem;
   text-align: left;
@@ -377,30 +381,30 @@ h6{
 }
 
 .overhydration-class {
-   margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .dehydration-class {
-   margin-left: 2rem;
+  margin-left: 2rem;
 }
 
 .frosting-class {
-   margin-left: 2rem;
-   margin-top: 0.5rem;
+  margin-left: 2rem;
+  margin-top: 0.5rem;
 }
 
 .very-class {
-   margin-left: 2.5rem;
-   margin-top: 0.5rem;
+  margin-left: 2.5rem;
+  margin-top: 0.5rem;
 }
 
 .good-class {
-   margin-left: -4.5rem;
-   margin-top: 1.5rem;
+  margin-left: -4.5rem;
+  margin-top: 1.5rem;
 }
 
-.diagnostic-subtitle{
-  font-family: 'Inter', sans-serif;
+.diagnostic-subtitle {
+  font-family: "Inter", sans-serif;
   //margin-top: -7rem;
   margin-left: 2.5rem;
   font-size: 1.5rem;
@@ -428,15 +432,15 @@ h6{
   color: $light-blue-diagnostic;
 }
 
-.mapa-card{
-    align-content: center;
-    margin: 1rem 1rem;
-    padding: 1rem;
-    width: 90rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
+.mapa-card {
+  align-content: center;
+  margin: 1rem 1rem;
+  padding: 1rem;
+  width: 90rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
   border-radius: 0.5rem;
 }
 
@@ -446,16 +450,16 @@ h6{
   margin-left: 1rem !important;
 }
 
-.option-select{
-    background-color:$verde-clarito !important;
+.option-select {
+  background-color: $verde-clarito !important;
 }
 
-.option-select:hover{
-    background-color:$main-green !important;
-    //color: white !important;
+.option-select:hover {
+  background-color: $main-green !important;
+  //color: white !important;
 }
 
-.form-control{
+.form-control {
   border-radius: 16px !important;
   border: 2px solid $main-green !important;
   font-size: 1.4rem !important;
@@ -468,49 +472,48 @@ h6{
 //   color: white !important;
 // }
 
-.vector{
+.vector {
   width: 30rem;
 }
 
-.campo-info-card-header{
+.campo-info-card-header {
   align-items: end;
   display: inline-flex;
   justify-content: flex-end;
   margin: 0.2rem;
 }
 
-
-.info-card{
+.info-card {
   margin: 0 1.2rem 0 1.2rem;
 }
 
-.info-mapa{
+.info-mapa {
   justify-content: space-between !important;
   flex-direction: column !important;
   margin: 1rem;
   width: 30rem;
 }
 
-.indices-body{
+.indices-body {
   width: 78% !important;
 }
 
-.indices{
+.indices {
   flex-direction: column;
   align-items: flex-start;
 }
-.indices-wrapper{
+.indices-wrapper {
   display: flex;
   width: 50%;
   justify-content: space-between;
 }
 
-.form-check-input{
+.form-check-input {
   border-color: $gris-titulo !important;
   //border-width: 2px !important;
 }
 
-.form-check-input:checked{
+.form-check-input:checked {
   background-color: $main-green !important;
   border-color: $main-green !important;
 }

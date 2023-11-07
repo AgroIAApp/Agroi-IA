@@ -347,7 +347,6 @@ export default function InfoCampo() {
   };
 
   const metricsForMenu = () => {
-    console.log(user2);
     let metros = 0;
     let sano = 0;
     const cultivo = traducciones[crop].cultivo;
@@ -355,7 +354,8 @@ export default function InfoCampo() {
     let humedadTemp = 0;
     let cuantosPlots = 0;
     let fullHistory = false;
-    const fechaActual = new Date();
+    const fechaActual = new Date(2023, 10, 16);
+    // const fechaActual = new Date();
     const fechaAUsar = new Date(fechaActual);
     let diferenciaMenor = Number.MAX_VALUE;
     let huboAlguno = false;
@@ -674,6 +674,11 @@ export default function InfoCampo() {
                 <div className="cards-titles">
                   Cultivo Sano
                 </div>
+                {(porcentajeSanoviejo < 0 || porcentajeSanoviejo > 0) && porcentajeSanoviejo !== Infinity ? (
+                  <div className="tooltip-history">
+                    <ToolTip toolText={`La cantidad de cultivo sano era: ${Math.floor(porcentajeSano / (1 + porcentajeSanoviejo / 100))} m2`} info={false} />
+                  </div>
+                ) : <div />}
                 {(porcentajeSano < 0 || porcentajeSano >= 0) && porcentajeSano !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle2">
                     {porcentajeSano.toLocaleString()}
@@ -698,9 +703,13 @@ export default function InfoCampo() {
                 <div className="circle-card third" />
                 <div className="cards-titles">
                   NDVI
-                  {'  '}
-                  <ToolTip toolText="Índice De Vegetación De Diferencia Normalizada" />
+                  <ToolTip toolText="Índice De Vegetación De Diferencia Normalizada" info />
                 </div>
+                {(ndviviejo < 0 || ndviviejo > 0) && ndviviejo !== Infinity ? (
+                  <div className="tooltip-history">
+                    <ToolTip toolText={`El promedio del NDVI era de: ${(ndvi / (1 + ndviviejo / 100)).toFixed(2)} prom`} info={false} />
+                  </div>
+                ) : <div />}
                 {(ndvi < 0 || ndvi >= 0) && ndvi !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle3">
                     {ndvi}
@@ -725,9 +734,13 @@ export default function InfoCampo() {
                 <div className="circle-card fourth" />
                 <div className="cards-titles">
                   NDMI
-                  {'  '}
-                  <ToolTip toolText="Índice De Humedad De Diferencia Normalizada" />
+                  <ToolTip toolText="Índice De Humedad De Diferencia Normalizada" info />
                 </div>
+                {(humedadviejo < 0 || humedadviejo > 0) && humedadviejo !== Infinity ? (
+                  <div className="tooltip-history">
+                    <ToolTip toolText={`El promedio del NDMI era de: ${(humedad / (1 + humedadviejo / 100)).toFixed(2)}`} info={false} />
+                  </div>
+                ) : <div />}
                 {(humedad < 0 || humedad >= 0) && humedad !== Infinity ? (
                   <div className="cards-Subtitle cards-Subtitle4">
                     {humedad}
@@ -771,7 +784,7 @@ export default function InfoCampo() {
                           onChange={handleRadioChange}
                           checked={indicator === 'ndvi'}
                         />
-                        <ToolTip toolText="Índice De Vegetación De Diferencia Normalizada" />
+                        <ToolTip toolText="Índice De Vegetación De Diferencia Normalizada" info />
                       </div>
                       <div className="indices-wrapper">
                         <Form.Check
@@ -784,7 +797,7 @@ export default function InfoCampo() {
                           onChange={handleRadioChange}
                           checked={indicator === 'ndsi'}
                         />
-                        <ToolTip toolText="Índice Diferencial Normalizado De Nieve" />
+                        <ToolTip toolText="Índice Diferencial Normalizado De Nieve" info />
                       </div>
                       <div className="indices-wrapper">
                         <Form.Check
@@ -797,7 +810,7 @@ export default function InfoCampo() {
                           onChange={handleRadioChange}
                           checked={indicator === 'ndmi'}
                         />
-                        <ToolTip toolText="Índice De Humedad De Diferencia Normalizada" />
+                        <ToolTip toolText="Índice De Humedad De Diferencia Normalizada" info />
                       </div>
                     </div>
                   </Form>
