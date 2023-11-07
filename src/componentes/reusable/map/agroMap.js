@@ -17,7 +17,8 @@ import './agroMap.scss';
 import styles from './styles';
 import { CROP_TYPES_TRANSLATIONS } from '../../../constants/translations';
 import IndicatorContext from '../../infoCampo/indicatorContext';
-import { addColor } from './funcionesMapa';
+import { addColor, createGrid, createRectangle } from './funcionesMapa';
+import { PLOT_SIZE } from '../../../constants/plots';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
@@ -288,6 +289,12 @@ function AgroMap({
       const features = draw.getAll();
       const lastDrawn = features.features[features.features.length - 1];
       const color = getRandomColor(features.features.length);
+
+      if (features.features.length > 1) {
+        const bbox = createRectangle([{ polygon: features.features[0] }]);
+        const { squareGridR } = createGrid(bbox, PLOT_SIZE);
+        draw.add(squareGridR);
+      }
 
       draw.setFeatureProperty(lastDrawn.id, 'portColor', color);
       changeCoordinates(features.features[0].geometry.coordinates[0][0]);
